@@ -3,6 +3,13 @@
   <PropertyGroup>
     <RootNamespace>libBAUtilCore</RootNamespace>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyVersion>1.0.10.21120</AssemblyVersion>
+    <FileVersion>1.0.10.20412</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DBOleDBUtil.vb" />
+    <Compile Remove="DBSqlDBUtil.vb" />
+  </ItemGroup>
 
 </Project>
