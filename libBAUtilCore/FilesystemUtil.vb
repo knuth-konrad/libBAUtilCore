@@ -185,7 +185,7 @@ Public Class FilesystemUtil
             i = 0
             ' Generate a new file name that eventually doesn't exist in the target folder. Stop at 9999!
             tempFile = NormalizePath(destPath) & destFile & "." & String.Format("{0:0000}", i) & destExt
-            Do While Exists(tempFile) = True And i < 9999
+            Do While File.Exists(tempFile) = True And i < 9999
                i += 1
                tempFile = NormalizePath(destPath) & destFile & "." & String.Format("{0:0000}", i) & destExt
             Loop
