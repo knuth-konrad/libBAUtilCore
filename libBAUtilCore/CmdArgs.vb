@@ -161,7 +161,7 @@ Namespace Utils.CmdArgs
             If sParam.Contains(.DelimiterValue) Then
                ' Parameter of the form /key=value
 
-               Dim o As New KeyValue
+               Dim o As New KeyValue(sParam)
 
                With o
                   ' '/file' for /file=MyFile.txt
@@ -181,7 +181,7 @@ Namespace Utils.CmdArgs
                ' Parameter of the form /Value.
                ' These are considered to be boolean parameters. If present, their value is 'True'
 
-               Dim o As New KeyValue
+               Dim o As New KeyValue(sParam)
 
                With o
                   .KeyLong = sParam.Trim
@@ -291,6 +291,36 @@ Namespace Utils.CmdArgs
 
          ' Reaching here, all parameters have been found
          Return True
+
+      End Function
+
+      ''' <summary>
+      ''' Return the corresponding KeyValue object
+      ''' </summary>
+      ''' <param name="key">The parameter's name (<see cref="KeyValue.Key"/></param>
+      ''' <param name="caseSensitive">Treat the name as case-sensitive?</param>
+      ''' <returns><see cref="KeyValue"/> whose <see cref="KeyValue.Key"/> equals <paramref name="key"/>.</returns>
+      Public Function GetParameterByName(ByVal key As String, Optional ByVal caseSensitive As Boolean = False) As KeyValue
+
+         ' Safe guard
+         If HasParameter(key) = False Then
+            Throw New ArgumentException("Parameter doesn't exist: " & key)
+         End If
+
+         For Each o As KeyValue In Me.KeyValues
+            If caseSensitive = False Then
+               If o.Key.ToLower = key Then
+                  Return o
+               End If
+            Else
+               If o.Key = key Then
+                  Return o
+               End If
+            End If
+         Next
+
+         ' We should never reach this point
+         Return Nothing
 
       End Function
 
@@ -467,6 +497,7 @@ Namespace Utils.CmdArgs
       Private msHelpText As String = String.Empty
       Private msKeyLong As String = String.Empty
       Private msKeyShort As String = String.Empty
+      Private msOriginalParameter As String = String.Empty
 
       Private moValue As Object
 
@@ -523,6 +554,20 @@ Namespace Utils.CmdArgs
       End Property
 
       ''' <summary>
+      ''' The full original parameter, e.g. /file=MyFile.txt
+      ''' </summary>
+      ''' <returns></returns>
+      Public Property OriginalParameter As String
+         Get
+            Return msOriginalParameter
+         End Get
+         Set(value As String)
+            msOriginalParameter = value
+         End Set
+      End Property
+
+
+      ''' <summary>
       ''' Parameter value, e.g. 'MyFile.txt' from /file=MyFile.txt
       ''' </summary>
       Public Property Value As Object
@@ -551,8 +596,9 @@ Namespace Utils.CmdArgs
 
 #End Region
 
-      Public Sub New(Optional ByVal keyShort As String = "", Optional ByVal keyLong As String = "",
-                     Optional ByVal value As Object = Nothing, Optional ByVal helpText As String = "")
+      Public Sub New(ByVal originalParam As String, Optional ByVal keyShort As String = "",
+                     Optional ByVal keyLong As String = "", Optional ByVal value As Object = Nothing,
+                     Optional ByVal helpText As String = "")
 
          MyBase.New
 
@@ -560,6 +606,7 @@ Namespace Utils.CmdArgs
             .HelpText = helpText
             .KeyLong = keyLong
             .KeyShort = keyShort
+            .OriginalParameter = originalParam
             .Value = value
          End With
 

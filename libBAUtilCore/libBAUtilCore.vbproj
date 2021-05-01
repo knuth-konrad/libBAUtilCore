@@ -3,8 +3,8 @@
   <PropertyGroup>
     <RootNamespace>libBAUtilCore</RootNamespace>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AssemblyVersion>1.0.10.21120</AssemblyVersion>
-    <FileVersion>1.0.10.20412</FileVersion>
+    <AssemblyVersion>1.0.14.21121</AssemblyVersion>
+    <FileVersion>1.0.14.19325</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
