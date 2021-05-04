@@ -203,6 +203,20 @@ Namespace Utils.CmdArgs
 
       End Function
 
+      ''' <summary>
+      ''' Set the parameter delimiter according to the OS' typical flavor
+      ''' </summary>
+      ''' <returns></returns>
+      Private Function GetDefaultDelimiterForOS() As String
+
+         If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(Runtime.InteropServices.OSPlatform.Windows) Then
+            Return DELIMITER_ARGS_WIN
+         Else
+            Return DELIMITER_ARGS_POSIX
+         End If
+
+      End Function
+
 
 #End Region
 
@@ -364,7 +378,7 @@ Namespace Utils.CmdArgs
          MyBase.New
 
          With Me
-            .DelimiterArgs = DELIMITER_ARGS_WIN
+            .DelimiterArgs = GetDefaultDelimiterForOS()
             .DelimiterValue = DELIMITER_VALUE
             .ValidParameters = New List(Of String)
          End With
@@ -376,7 +390,7 @@ Namespace Utils.CmdArgs
          MyBase.New
 
          With Me
-            .DelimiterArgs = DELIMITER_ARGS_WIN
+            .DelimiterArgs = GetDefaultDelimiterForOS()
             .DelimiterValue = DELIMITER_VALUE
             If Not validParams Is Nothing Then
                .ValidParameters = validParams
