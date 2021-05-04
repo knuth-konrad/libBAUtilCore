@@ -356,6 +356,60 @@ Public Class StringUtil
    Public Overloads Shared Function [String](ByVal character As String, ByVal count As UInt32) As String
       Return New String(CType(character, Char), CType(count, Integer))
    End Function
+
+   ''' <summary>
+   ''' Remove any occurrence of <paramref name="removeChars"/> in <paramref name="source"/>
+   ''' </summary>
+   ''' <param name="source">Source string</param>
+   ''' <param name="removeChars">List of strings to remove from <paramref name="source"/></param>
+   ''' <returns></returns>
+   Public Overloads Shared Function TrimAny(ByVal source As String, ByVal removeChars() As Char) As String
+
+      Dim result As String = source
+
+      result = result.TrimStart(removeChars)
+      result = result.TrimEnd(removeChars)
+
+      Return result
+
+   End Function
+
+   ''' <summary>
+   ''' Remove any occurrence of <paramref name="removeChars"/> in <paramref name="source"/>
+   ''' </summary>
+   ''' <param name="source">Source string</param>
+   ''' <param name="removeChars">List of strings to remove from <paramref name="source"/></param>
+   ''' <returns></returns>
+   Public Overloads Shared Function TrimAny(ByVal source As String, ByVal removeChars As String) As String
+
+      Dim result As String = source
+
+      result = result.TrimStart(removeChars.ToCharArray)
+      result = result.TrimEnd(removeChars.ToCharArray)
+
+      Return result
+
+   End Function
+
+   ''' <summary>
+   ''' Remove any occurrence of <paramref name="removeChars"/> in <paramref name="source"/>
+   ''' </summary>
+   ''' <param name="source">Source string</param>
+   ''' <param name="removeChars">List of strings to remove from <paramref name="source"/></param>
+   ''' <returns></returns>
+   Public Overloads Shared Function TrimAny(ByVal source As String, ByVal removeChars() As String) As String
+
+      Dim result As String = source
+
+      For Each s As String In removeChars
+         result = result.TrimStart(s.ToCharArray)
+         result = result.TrimEnd(s.ToCharArray)
+      Next
+
+      Return result
+
+   End Function
+
 #End Region
 
 #Region "Method Space()"
@@ -374,6 +428,24 @@ Public Class StringUtil
    ''' <param name="count">Number of space</param>
    ''' <returns>String of <paramref name="count"/> spaces</returns>
    Public Overloads Shared Function Space(ByVal count As Int32) As String
+      Return New String(" "c, CType(count, Integer))
+   End Function
+
+   ''' <summary>
+   ''' Mimics VB6's Space() function
+   ''' </summary>
+   ''' <param name="count">Number of space</param>
+   ''' <returns>String of <paramref name="count"/> spaces</returns>
+   Public Overloads Shared Function Space(ByVal count As UInt64) As String
+      Return New String(" "c, CType(count, Integer))
+   End Function
+
+   ''' <summary>
+   ''' Mimics VB6's Space() function
+   ''' </summary>
+   ''' <param name="count">Number of space</param>
+   ''' <returns>String of <paramref name="count"/> spaces</returns>
+   Public Overloads Shared Function Space(ByVal count As Int64) As String
       Return New String(" "c, CType(count, Integer))
    End Function
 #End Region
@@ -455,6 +527,14 @@ Public Class StringUtil
          sResult &= System.Convert.ToChar(9).ToString
       Next
       Return sResult
+   End Function
+
+   ''' <summary>
+   ''' Return a string of what's considered to be 'white space'
+   ''' </summary>
+   ''' <returns></returns>
+   Public Shared Function vbWhiteSpace() As String
+      Return vbTab() & vbNewLine() & " "
    End Function
 #End Region
 
