@@ -113,7 +113,9 @@ Namespace Utils.CmdArgs
                If .CaseSensitive = False Then
                   If (o.Key.ToLower = currentKey.Key.ToLower) AndAlso (i <> currentIndex) Then
                      Return True
-                  ElseIf (o.Key = currentKey.Key) AndAlso (i <> currentIndex) Then
+                  End If
+               Else
+                  If (o.Key = currentKey.Key) AndAlso (i <> currentIndex) Then
                      Return True
                   End If
                End If
@@ -209,14 +211,13 @@ Namespace Utils.CmdArgs
       ''' <returns></returns>
       Private Function GetDefaultDelimiterForOS() As String
 
-         If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(Runtime.InteropServices.OSPlatform.Windows) Then
+         If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows) Then
             Return DELIMITER_ARGS_WIN
          Else
             Return DELIMITER_ARGS_POSIX
          End If
 
       End Function
-
 
 #End Region
 
@@ -323,7 +324,7 @@ Namespace Utils.CmdArgs
 
          For Each o As KeyValue In Me.KeyValues
             If caseSensitive = False Then
-               If o.Key.ToLower = key Then
+               If o.Key.ToLower = key.ToLower Then
                   Return o
                End If
             Else
