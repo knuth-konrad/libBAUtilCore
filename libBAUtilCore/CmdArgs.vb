@@ -13,6 +13,8 @@ Namespace Utils.CmdArgs
    ''' </summary>
    Public Class CmdArgs
 
+      Implements System.IDisposable
+
 #Region "Declarations"
 
       Public Enum eArgumentDelimiterStyle
@@ -373,7 +375,6 @@ Namespace Utils.CmdArgs
 
 #Region "Constructor/Dispose"
 
-
       Public Sub New()
 
          MyBase.New
@@ -503,6 +504,10 @@ Namespace Utils.CmdArgs
 
       End Sub
 
+      Public Overloads Sub Dispose() Implements IDisposable.Dispose
+         GC.SuppressFinalize(Me)
+      End Sub
+
 #End Region
 
    End Class
@@ -630,4 +635,3 @@ Namespace Utils.CmdArgs
    End Class
 
 End Namespace
-
