@@ -538,4 +538,22 @@ Public Class StringUtil
    End Function
 #End Region
 
+#Region "OS specific characters"
+
+   ''' <summary>
+   ''' Returns the OS specific path separator.
+   ''' </summary>
+   ''' <returns></returns>
+   Public Shared Function OSPathSeperator() As String
+
+      If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows) Then
+         Return "\"
+      Else
+         Return "/"
+      End If
+
+   End Function
+
+#End Region
+
 End Class
