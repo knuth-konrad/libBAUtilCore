@@ -1,6 +1,8 @@
 Imports System.IO
 Imports System.IO.Path
 
+Imports libBAUtilCore.StringUtil
+
 ''' <summary>
 ''' General file system helper methods
 ''' </summary>
@@ -205,6 +207,67 @@ Public Class FilesystemUtil
       newFile = tempFile
 
       Return True
+
+   End Function
+
+   Public Shared Function ShortenPathText(ByVal sPath As String, ByVal lMaxLen As Int32, Optional ByVal sDelim As String = "") As String
+      '------------------------------------------------------------------------------
+      'Funktion : Kürzt eine Pfadangabe auf lMaxLen Zeichen
+      '
+      'Vorauss. : -
+      'Parameter: sPath    -  zu kürzende Pfadangabe
+      '           lMaxLen  -  maximal Länge des Pfades
+      'Rückgabe : -
+      '
+      'Autor    : Doberenz & Kowalski
+      'erstellt : 26.11.1999
+      'geändert : Knuth Konrad
+      '           ungarische Notation und Stringfunktion statt Variant (Mid, Left...)
+      'Notiz    : Quelle: Visual Basic 6 Kochbuch, Hanser Verlag
+      '------------------------------------------------------------------------------
+      Dim i, lLen, lDiff As Int32
+      Dim sTemp As String = String.Empty
+
+      lLen = sPath.Length
+
+      If lLen <= lMaxLen Then
+         Return sPath
+      End If
+
+      If sDelim.Length < 1 Then
+         sDelim = OSPathSeperator()
+      End If
+
+      For i = (lLen - lMaxLen + 6) To lLen
+         If Mid$(sPath, i, 1) = sDelim Then Exit For
+      Next i
+
+      If InStr(sPath, sDelim) < 1 Then
+         ' Ist wohl nur eine Datei, ohne Pfadangabe -> die "Mitte" des Namens kürzen
+
+         sTemp = sPath
+
+         If lLen > lMaxLen Then
+            lDiff = lLen - lMaxLen
+         Else
+            lDiff = 0
+         End If
+
+         lDiff = lDiff \ 2
+
+         If lDiff > 2 Then
+            sTemp = Left$(sPath, lLen \ 2) & "..." & Right$(sPath, lLen \ 2)
+         End If
+
+      Else
+         If i < lLen Then
+            sTemp = Left$(sPath, 3) & "..." & Right$(sPath, lLen - (i - 1))
+         Else
+            sTemp = Left$(sPath, 3) & "..." & Right$(sPath, lMaxLen - 6)
+         End If
+      End If
+
+      Return sTemp
 
    End Function
 
