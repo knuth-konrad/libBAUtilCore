@@ -23,7 +23,7 @@ Public Class FilesystemUtil
    ''' <returns>
    ''' <paramref name="sPath"/> with <paramref name="sDelim"/> stripped off, if present.
    ''' </returns>
-   Public Shared Function DenormalizePath(ByVal sPath As String, Optional ByVal sDelim As String = "\",
+   Public Shared Function DenormalizePath(ByVal sPath As String, ByVal sDelim As String,
                                           Optional bolCheckTail As Boolean = True) As String
       '------------------------------------------------------------------------------
       'Prereq.  : -
@@ -35,6 +35,47 @@ Public Class FilesystemUtil
       '  Changed: 09.08.1999, Knuth Konrad
       '           - Pass argument(s) ByVal and String instead of Variant
       '------------------------------------------------------------------------------
+      If bolCheckTail = True Then
+         If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
+            Return sPath
+         Else
+            Return sPath.Substring(1, sPath.Length - sDelim.Length)
+         End If
+      Else
+         If StringUtil.Left(sPath, sDelim.Length) <> sDelim Then
+            Return sPath
+         Else
+            Return sPath.Substring(sDelim.Length + 1)
+         End If
+      End If
+   End Function
+
+   ''' <summary>
+   ''' Ensure a path does NOT end with a path delimiter
+   ''' </summary>
+   ''' <param name="sPath">
+   ''' Path (drive or network share), C:\Windows\ or \\myserver\myshare\
+   ''' </param>
+   ''' <param name="bolCheckTail">
+   ''' Check the start or end (default) of <paramref name="sPath"/>.
+   ''' </param>
+   ''' <returns>
+   ''' <paramref name="sPath"/> with <paramref name="sDelim"/> stripped off, if present.
+   ''' </returns>
+   Public Shared Function DenormalizePath(ByVal sPath As String,
+                                          Optional bolCheckTail As Boolean = True) As String
+      '------------------------------------------------------------------------------
+      'Prereq.  : -
+      'Note     : -
+      '
+      '   Author: Bruce McKinney - Hardcore Visual Basic 5
+      '     Date: 08.04.2019
+      '   Source: -
+      '  Changed: 09.08.1999, Knuth Konrad
+      '           - Pass argument(s) ByVal and String instead of Variant
+      '------------------------------------------------------------------------------
+      Dim sDelim As String = OSPathSeperator()
+
       If bolCheckTail = True Then
          If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
             Return sPath
@@ -65,7 +106,7 @@ Public Class FilesystemUtil
    ''' <returns>
    ''' <paramref name="sPath"/> with <paramref name="sDelim"/> add, if not present.
    ''' </returns>
-   Public Shared Function NormalizePath(ByVal sPath As String, Optional ByVal sDelim As String = "\",
+   Public Shared Function NormalizePath(ByVal sPath As String, ByVal sDelim As String,
                                         Optional bolCheckTail As Boolean = True) As String
       '------------------------------------------------------------------------------
       'Prereq.  : -
@@ -76,6 +117,47 @@ Public Class FilesystemUtil
       '   Change: 09.08.1999, Knuth Konrad
       '           - Pass argument(s) ByVal and String instead of Variant
       '------------------------------------------------------------------------------
+      If bolCheckTail = True Then
+         If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
+            Return sPath & sDelim
+         Else
+            Return sPath
+         End If
+      Else
+         If StringUtil.Left(sPath, sDelim.Length) <> sDelim Then
+            Return sDelim & sPath
+         Else
+            Return sPath
+         End If
+      End If
+
+   End Function
+
+   ''' <summary>
+   ''' Ensure a path does end with a path delimiter
+   ''' </summary>
+   ''' <param name="sPath">
+   ''' Path (drive or network share), C:\Windows\ or \\myserver\myshare\
+   ''' </param>
+   ''' <param name="bolCheckTail">
+   ''' Check the start or end (default) of <paramref name="sPath"/>.
+   ''' </param>
+   ''' <returns>
+   ''' <paramref name="sPath"/> with OS.specific path separator add, if not present.
+   ''' </returns>
+   Public Shared Function NormalizePath(ByVal sPath As String,
+                                        Optional bolCheckTail As Boolean = True) As String
+      '------------------------------------------------------------------------------
+      'Prereq.  : -
+      '
+      '   Author: Bruce McKinney - Hardcore Visual Basic 5
+      '     Date: 07.06.2018
+      '   Source: -
+      '   Change: 09.08.1999, Knuth Konrad
+      '           - Pass argument(s) ByVal and String instead of Variant
+      '------------------------------------------------------------------------------
+      Dim sDelim As String = OSPathSeperator()
+
       If bolCheckTail = True Then
          If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
             Return sPath & sDelim
