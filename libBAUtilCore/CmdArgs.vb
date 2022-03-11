@@ -312,6 +312,28 @@ Namespace Utils.CmdArgs
       End Function
 
       ''' <summary>
+      ''' Determine if any of these parameters are present
+      ''' </summary>
+      ''' <param name="paramlist">List of parameter names (<see cref="KeyValue.Key"/>)</param>
+      ''' <returns>
+      ''' <see langword="true"/> if at least one of the parameters passed is present, otherwise <see langword="false"/>
+      ''' </returns>
+      Public Overloads Function HasAnyParameter(ByVal paramList As List(Of String)) As Boolean
+
+         With Me
+            For Each s As String In paramList
+               If HasParameter(s) = True Then
+                  Return True
+               End If
+            Next
+         End With
+
+         ' Reaching here, no parameter has been found
+         Return False
+
+      End Function
+
+      ''' <summary>
       ''' Return the corresponding KeyValue object
       ''' </summary>
       ''' <param name="key">The parameter's name (<see cref="KeyValue.Key"/></param>
