@@ -312,8 +312,11 @@ Public Class StringUtil
    ''' </summary>
    ''' <param name="text">Wrap this string in quotation marks.</param>
    ''' <returns><paramref name="text"/> enclosed in double quotation marks (")</returns>
-   Public Shared Function EnQuote(ByVal text As String) As String
-      Return System.Convert.ToChar(34).ToString & text & System.Convert.ToChar(34).ToString
+   Public Shared Function EnQuote(ByVal text As String, Optional ByVal quoteChar As String = "") As String
+      If quoteChar.Length < 1 Then
+         quoteChar = vbQuote()
+      End If
+      Return quoteChar & text & quoteChar
    End Function
 
 #Region "Method String()"
@@ -450,6 +453,108 @@ Public Class StringUtil
    End Function
 #End Region
 
+#Region "Method Unwrap()"
+
+   ''' <summary>
+   ''' Remove paired characters from the beginning and end of a string.
+   ''' </summary>
+   ''' <param name="source">Input string</param>
+   ''' <param name="leftChar">Removes the characters in leftChar from the beginning of <paramref name="source"/>, if there is an exact match.</param>
+   ''' <param name="rightChar">Removes the characters in rightChar from the end of <paramref name="source"/>, if there is an exact match.</param>
+   ''' <returns><paramref name="source"/> with <paramref name="leftChar"/> and <paramref name="rightChar"/> removed</returns>
+   ''' <remarks>Mimics PB's Unwrap() method</remarks>
+   Public Overloads Shared Function Unwrap(ByVal source As String, ByVal leftChar As String, ByVal rightChar As String) As String
+
+      Dim s As String = String.Empty
+
+      s = source
+      If s.Length > leftChar.Length AndAlso Left(s, leftChar.Length) = leftChar Then
+         s = Mid(s, leftChar.Length + 1)
+      End If
+
+      If s.Length > rightChar.Length AndAlso Right(s, rightChar.Length) = rightChar Then
+         s = Left(s, s.Length - rightChar.Length)
+      End If
+
+      Return s
+
+   End Function
+
+   ''' <summary>
+   ''' Remove paired characters from the beginning and end of a string.
+   ''' </summary>
+   ''' <param name="source">Input string</param>
+   ''' <param name="leftChar">Removes the characters in leftChar from the beginning of <paramref name="source"/>, if there is an exact match.</param>
+   ''' <param name="rightChar">Removes the characters in rightChar from the end of <paramref name="source"/>, if there is an exact match.</param>
+   ''' <returns><paramref name="source"/> with <paramref name="leftChar"/> and <paramref name="rightChar"/> removed</returns>
+   ''' <remarks>Mimics PB's Unwrap() method</remarks>
+   Public Overloads Shared Function Unwrap(ByVal source As String, ByVal leftChar As Char, ByVal rightChar As Char) As String
+
+      Dim s As String = String.Empty
+
+      s = source
+      If s.Length > 1 AndAlso Left(s, 1) = leftChar Then
+         s = Mid(s, 1)
+      End If
+
+      If s.Length > 1 AndAlso Right(s, 1) = rightChar Then
+         s = Left(s, s.Length - 1)
+      End If
+
+      Return s
+
+   End Function
+
+   ''' <summary>
+   ''' Remove paired characters from the beginning and end of a string.
+   ''' </summary>
+   ''' <param name="source">Input string</param>
+   ''' <param name="unwrapChar">Removes the characters in unwarapChar from the beginning of  and the end of <paramref name="source"/>, if there is an exact match.</param>
+   ''' <returns><paramref name="source"/> with <paramref name="unwrapChar"/> removed</returns>
+   ''' <remarks>Mimics PB's Unwrap() method</remarks>
+   Public Overloads Shared Function Unwrap(ByVal source As String, ByVal unwrapChar As String) As String
+
+      Dim s As String = String.Empty
+
+      s = source
+      If s.Length > unwrapChar.Length AndAlso Left(s, unwrapChar.Length) = unwrapChar Then
+         s = Mid(s, unwrapChar.Length + 1)
+      End If
+
+      If s.Length > unwrapChar.Length AndAlso Right(s, unwrapChar.Length) = unwrapChar Then
+         s = Left(s, s.Length - unwrapChar.Length)
+      End If
+
+      Return s
+
+   End Function
+
+   ''' <summary>
+   ''' Remove paired characters from the beginning and end of a string.
+   ''' </summary>
+   ''' <param name="source">Input string</param>
+   ''' <param name="unwrapChar">Removes the characters in unwarapChar from the beginning of  and the end of <paramref name="source"/>, if there is an exact match.</param>
+   ''' <returns><paramref name="source"/> with <paramref name="unwrapChar"/> removed</returns>
+   ''' <remarks>Mimics PB's Unwrap() method</remarks>
+   Public Overloads Shared Function Unwrap(ByVal source As String, ByVal unwrapChar As Char) As String
+
+      Dim s As String = String.Empty
+
+      s = source
+      If s.Length > 1 AndAlso Left(s, 1) = unwrapChar Then
+         s = Mid(s, 1)
+      End If
+
+      If s.Length > 1 AndAlso Right(s, 1) = unwrapChar Then
+         s = Left(s, s.Length - 1)
+      End If
+
+      Return s
+
+   End Function
+
+#End Region
+
 #Region "Date formatting"
    ''' <summary>
    ''' Create a date string of format YYYYMMDD[[T]HHNNSS].
@@ -536,24 +641,6 @@ Public Class StringUtil
    Public Shared Function vbWhiteSpace() As String
       Return vbTab() & vbNewLine() & " "
    End Function
-#End Region
-
-#Region "OS specific characters"
-
-   ''' <summary>
-   ''' Returns the OS specific path separator.
-   ''' </summary>
-   ''' <returns></returns>
-   Public Shared Function OSPathSeperator() As String
-
-      If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows) Then
-         Return "\"
-      Else
-         Return "/"
-      End If
-
-   End Function
-
 #End Region
 
 End Class
