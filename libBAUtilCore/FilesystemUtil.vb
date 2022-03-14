@@ -74,7 +74,7 @@ Public Class FilesystemUtil
       '  Changed: 09.08.1999, Knuth Konrad
       '           - Pass argument(s) ByVal and String instead of Variant
       '------------------------------------------------------------------------------
-      Dim sDelim As String = OSPathSeperator()
+      Dim sDelim As String = Path.PathSeparator
 
       If bolCheckTail = True Then
          If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
@@ -156,7 +156,7 @@ Public Class FilesystemUtil
       '   Change: 09.08.1999, Knuth Konrad
       '           - Pass argument(s) ByVal and String instead of Variant
       '------------------------------------------------------------------------------
-      Dim sDelim As String = OSPathSeperator()
+      Dim sDelim As String = Path.PathSeparator
 
       If bolCheckTail = True Then
          If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
@@ -317,7 +317,7 @@ Public Class FilesystemUtil
       End If
 
       If sDelim.Length < 1 Then
-         sDelim = OSPathSeperator()
+         sDelim = Path.PathSeparator
       End If
 
       For i = (lLen - lMaxLen + 6) To lLen
