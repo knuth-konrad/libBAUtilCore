@@ -1,4 +1,4 @@
-﻿Imports libBAUtilCore.StringUtil
+Imports libBAUtilCore.StringHelper
 
 ''' <summary>
 ''' Network (files, folders, shares) related utilities.

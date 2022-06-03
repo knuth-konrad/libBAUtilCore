@@ -1,22 +1,28 @@
 Imports System.Reflection
 
-Imports libBAUtilCore.StringUtil
+Imports libBAUtilCore.StringHelper
+Imports libBAUtilCore.ConHelperData
 
 ''' <summary>
 ''' General purpose console application helpers
 ''' </summary>
-Public Class ConsoleUtil
+Public Class ConsoleHelper
 
 #Region "Declarations"
    ' Copyright notice values
-   Private Const COPY_COMPANYNAME As String = "BasicAware"
-   Private Const COPY_AUTHOR As String = "Knuth Konrad"
+   ' Private Const COPY_COMPANYNAME As String = "BasicAware"
+   ' Private Const COPY_AUTHOR As String = "Knuth Konrad"
    ' Console defaults
-   Private Const CON_SEPARATOR As String = "---"
+   ' Private Const CON_SEPARATOR As String = "---"
+
+   ' Console cursor position WaitIndicator
+   Private mThdCurLeft, mThdCurTop, mThdSpinDelay As Int32
+   Private mThdNewLine As Boolean
+   Private thdWaitIndicator As System.Threading.Thread
 
 #End Region
 
-#Region "ConHeadline"
+#Region "AppIntro"
 
    ''' <summary>
    ''' Display an application intro
@@ -26,18 +32,18 @@ Public Class ConsoleUtil
    ''' <param name="versionMinor">Minor version</param>
    ''' <param name="versionRevision">Revision</param>
    ''' <param name="versionBuild">Build</param>
-   Public Overloads Shared Sub ConHeadline(ByVal appName As String, ByVal versionMajor As Integer,
+   Public Overloads Shared Sub AppIntro(ByVal appName As String, ByVal versionMajor As Integer,
                                            Optional ByVal versionMinor As Integer = 0,
                                            Optional ByVal versionRevision As Int32 = 0,
                                            Optional versionBuild As Int32 = 0)
 
       Console.ForegroundColor = ConsoleColor.White
-      Console.WriteLine(Chr(16) & " " & appName & " v" &
+      Console.WriteLine("* " & appName & " v" &
                         versionMajor.ToString & "." &
                         versionMinor.ToString & "." &
                         versionRevision.ToString & "." &
                         versionBuild.ToString &
-                        " " & Chr(17))
+                        " *")
       Console.ForegroundColor = ConsoleColor.Gray
 
    End Sub
@@ -46,10 +52,10 @@ Public Class ConsoleUtil
    ''' Display an application intro
    ''' </summary>
    ''' <param name="appName">Name of the application</param>
-   Public Overloads Shared Sub ConHeadline(ByVal appName As String)
+   Public Overloads Shared Sub AppIntro(ByVal appName As String)
 
       Console.ForegroundColor = ConsoleColor.White
-      Console.WriteLine(Chr(16) & " " & appName & " " & Chr(17))
+      Console.WriteLine("* " & appName & " *")
       Console.ForegroundColor = ConsoleColor.Gray
 
    End Sub
@@ -59,10 +65,10 @@ Public Class ConsoleUtil
    ''' </summary>
    ''' <param name="appName">Name of the application</param>
    ''' <param name="versionMajor">Major version</param>
-   Public Overloads Shared Sub ConHeadline(ByVal appName As String, ByVal versionMajor As Integer)
+   Public Overloads Shared Sub AppIntro(ByVal appName As String, ByVal versionMajor As Integer)
 
       Console.ForegroundColor = ConsoleColor.White
-      Console.WriteLine(Chr(16) & " " & appName & " v" & versionMajor.ToString & ".0 " & Chr(17))
+      Console.WriteLine("* " & appName & " v" & versionMajor.ToString & ".0 *")
       Console.ForegroundColor = ConsoleColor.Gray
 
    End Sub
@@ -77,7 +83,7 @@ Public Class ConsoleUtil
    ''' <remarks>
    ''' See https://docs.microsoft.com/en-us/dotnet/api/system.version?view=net-5.0
    ''' </remarks>
-   Public Overloads Shared Sub ConHeadline(ByVal mainAssembly As Assembly)
+   Public Overloads Shared Sub AppIntro(ByVal mainAssembly As Assembly)
 
       Dim assemName As AssemblyName = mainAssembly.GetName()
       Dim ver As Version = assemName.Version
@@ -87,22 +93,27 @@ Public Class ConsoleUtil
       Console.ForegroundColor = ConsoleColor.Gray
 
    End Sub
+
+
 #End Region
 
-#Region "ConCopyright"
+#Region "AppCopyright"
+
    ''' <summary>
    ''' Display a copyright notice.
    ''' </summary>
-   Public Overloads Shared Sub ConCopyright(Optional ByVal trailingBlankLine As Boolean = True)
-      ConCopyright(DateTime.Now.Year.ToString, COPY_COMPANYNAME, trailingBlankLine)
+   ''' <param name="trailingBlankLine">Add a blank line afterwards.</param>
+   Public Overloads Shared Sub AppCopyright(Optional ByVal trailingBlankLine As Boolean = True)
+      AppCopyright(DateTime.Now.Year.ToString, ConHelperData.COPY_COMPANYNAME, trailingBlankLine)
    End Sub
 
    ''' <summary>
    ''' Display a copyright notice.
    ''' </summary>
    ''' <param name="companyName">Copyright owner</param>
-   Public Overloads Shared Sub ConCopyright(ByVal companyName As String, Optional ByVal trailingBlankLine As Boolean = True)
-      ConCopyright(DateTime.Now.Year.ToString, companyName, trailingBlankLine)
+   ''' <param name="trailingBlankLine">Add a blank line afterwards.</param>
+   Public Overloads Shared Sub AppCopyright(ByVal companyName As String, Optional ByVal trailingBlankLine As Boolean = True)
+      AppCopyright(DateTime.Now.Year.ToString, companyName, trailingBlankLine)
    End Sub
 
    ''' <summary>
@@ -110,16 +121,19 @@ Public Class ConsoleUtil
    ''' </summary>
    ''' <param name="year">Copyrighted in year</param>
    ''' <param name="companyName">Copyright owner</param>
-   Public Overloads Shared Sub ConCopyright(ByVal year As String, ByVal companyName As String, Optional ByVal trailingBlankLine As Boolean = True)
+   ''' <param name="trailingBlankLine">Add a blank line afterwards.</param>
+   Public Overloads Shared Sub AppCopyright(ByVal year As String, ByVal companyName As String, Optional ByVal trailingBlankLine As Boolean = True)
       Console.WriteLine(String.Format("Copyright {0} {1} by {2}. All rights reserved.", Chr(169), year, companyName))
-      Console.WriteLine("Written by " & COPY_AUTHOR)
+      Console.WriteLine("Written by " & ConHelperData.COPY_AUTHOR)
 
       If trailingBlankLine = True Then
          Console.WriteLine("")
       End If
    End Sub
+
 #End Region
 
+#Region "AnyKey"
    ''' <summary>
    ''' Pauses the program execution and waits for a key press
    ''' </summary>
@@ -137,6 +151,9 @@ Public Class ConsoleUtil
 
    End Sub
 
+#End Region
+
+#Region "BlankLine"
    ''' <summary>
    ''' Insert a blank line at the current position.
    ''' </summary>
@@ -158,7 +175,9 @@ Public Class ConsoleUtil
       Next
 
    End Sub
+#End Region
 
+#Region "WriteIndent"
    ''' <summary>
    ''' Output text indented by (<paramref name="indentBy"/>) spaces
    ''' </summary>
@@ -174,5 +193,91 @@ Public Class ConsoleUtil
       End If
 
    End Sub
+#End Region
+
+#Region "WaitIndicator"
+
+   ''' <summary>
+   ''' Starts a "spinning wheel" kinda wait time indicator
+   ''' </summary>
+   ''' <param name="newLine">Add a newline on the first post?</param>
+   ''' <param name="spinDelay">A "spinning tick" occurs every <paramref name="spinDelay"/> milliseconds.</param>
+   Public Sub WaitIndicatorStart(Optional ByVal newLine As Boolean = True, Optional ByVal spinDelay As Int32 = 100)
+
+      mThdCurLeft = Console.CursorLeft
+      mThdCurTop = Console.CursorTop
+      mThdNewLine = newLine
+      mThdSpinDelay = spinDelay
+      thdWaitIndicator = New Threading.Thread(AddressOf WaitIndicator)
+      thdWaitIndicator.Start()
+
+   End Sub
+
+   ''' <summary>
+   ''' Stops a previously started <see cref="WaitIndicatorStart(Boolean, Integer)"/> wait time indicator.
+   ''' </summary>
+   Public Sub WaitIndicatorStop()
+
+      If Not thdWaitIndicator Is Nothing Then
+         thdWaitIndicator.Abort()
+         thdWaitIndicator.Join()
+      End If
+
+   End Sub
+
+   ''' <summary>
+   ''' Object Finalizer
+   ''' </summary>
+   Protected Overrides Sub Finalize()
+      WaitIndicatorStop()
+      MyBase.Finalize()
+   End Sub
+
+   Private Sub WaitIndicator()
+
+      Dim lStep As Int32
+      Dim blnBeenHere As Boolean = False
+      Dim curLeftOld, curTopOld As Int32, curVisibleOld As Boolean
+
+      Dim asChar() As String = {"/", "-", "\", "|"}
+
+      ' Safe guard
+      If Console.IsOutputRedirected = True Then
+         Exit Sub
+      End If
+
+      Do
+         Threading.Thread.BeginCriticalRegion()
+
+         curLeftOld = Console.CursorLeft
+         curTopOld = Console.CursorTop
+         curVisibleOld = Console.CursorVisible
+
+         Console.SetCursorPosition(mThdCurLeft, mThdCurTop)
+         Console.CursorVisible = False
+         Console.Write(asChar(lStep))
+
+         If blnBeenHere = False Then
+            If mThdNewLine = True Then
+               curTopOld += 1
+               curLeftOld = 0
+            End If
+            blnBeenHere = True
+         End If
+
+         lStep += 1
+         If lStep >= 3 Then
+            lStep = 0
+         End If
+         Console.SetCursorPosition(curLeftOld, curTopOld)
+         Console.CursorVisible = curVisibleOld
+         Threading.Thread.EndCriticalRegion()
+
+         Threading.Thread.Sleep(mThdSpinDelay)
+      Loop
+
+   End Sub
+
+#End Region
 
 End Class

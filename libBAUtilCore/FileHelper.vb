@@ -46,8 +46,8 @@ Public Class TextFileUtil
    ''' <param name="textFile">Text file incl. full path</param>
    ''' <param name="textLine">Contents of new line</param>
    ''' <param name="doAppend">
-   ''' <see langref="true"/>: append <paramref name="textLine"/> at the end of <paramref name="textFile"/><br />
-   ''' <see langref="false"/>: insert <paramref name="textLine"/> at the current position of <paramref name="textFile"/>
+   ''' <see langword="true"/>: append <paramref name="textLine"/> at the end of <paramref name="textFile"/><br />
+   ''' <see langword="false"/>: insert <paramref name="textLine"/> at the current position of <paramref name="textFile"/>
    ''' </param>
    Public Shared Sub TxtWriteLine(ByVal textFile As String, ByVal textLine As String, Optional ByVal doAppend As Boolean = True)
 

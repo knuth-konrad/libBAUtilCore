@@ -1,12 +1,12 @@
 Imports System.IO
+Imports System.IO.File
 Imports System.IO.Path
-
-Imports libBAUtilCore.StringUtil
 
 ''' <summary>
 ''' General file system helper methods
 ''' </summary>
-Public Class FilesystemUtil
+Public Class FilesystemHelper
+
 
    ''' <summary>
    ''' Ensure a path does NOT end with a path delimiter
@@ -25,24 +25,14 @@ Public Class FilesystemUtil
    ''' </returns>
    Public Shared Function DenormalizePath(ByVal sPath As String, ByVal sDelim As String,
                                           Optional bolCheckTail As Boolean = True) As String
-      '------------------------------------------------------------------------------
-      'Prereq.  : -
-      'Note     : -
-      '
-      '   Author: Bruce McKinney - Hardcore Visual Basic 5
-      '     Date: 08.04.2019
-      '   Source: -
-      '  Changed: 09.08.1999, Knuth Konrad
-      '           - Pass argument(s) ByVal and String instead of Variant
-      '------------------------------------------------------------------------------
       If bolCheckTail = True Then
-         If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
+         If StringHelper.Right(sPath, sDelim.Length) <> sDelim Then
             Return sPath
          Else
             Return sPath.Substring(1, sPath.Length - sDelim.Length)
          End If
       Else
-         If StringUtil.Left(sPath, sDelim.Length) <> sDelim Then
+         If StringHelper.Left(sPath, sDelim.Length) <> sDelim Then
             Return sPath
          Else
             Return sPath.Substring(sDelim.Length + 1)
@@ -64,26 +54,16 @@ Public Class FilesystemUtil
    ''' </returns>
    Public Shared Function DenormalizePath(ByVal sPath As String,
                                           Optional bolCheckTail As Boolean = True) As String
-      '------------------------------------------------------------------------------
-      'Prereq.  : -
-      'Note     : -
-      '
-      '   Author: Bruce McKinney - Hardcore Visual Basic 5
-      '     Date: 08.04.2019
-      '   Source: -
-      '  Changed: 09.08.1999, Knuth Konrad
-      '           - Pass argument(s) ByVal and String instead of Variant
-      '------------------------------------------------------------------------------
       Dim sDelim As String = Path.PathSeparator
 
       If bolCheckTail = True Then
-         If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
+         If StringHelper.Right(sPath, sDelim.Length) <> sDelim Then
             Return sPath
          Else
             Return sPath.Substring(1, sPath.Length - sDelim.Length)
          End If
       Else
-         If StringUtil.Left(sPath, sDelim.Length) <> sDelim Then
+         If StringHelper.Left(sPath, sDelim.Length) <> sDelim Then
             Return sPath
          Else
             Return sPath.Substring(sDelim.Length + 1)
@@ -118,13 +98,13 @@ Public Class FilesystemUtil
       '           - Pass argument(s) ByVal and String instead of Variant
       '------------------------------------------------------------------------------
       If bolCheckTail = True Then
-         If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
+         If StringHelper.Right(sPath, sDelim.Length) <> sDelim Then
             Return sPath & sDelim
          Else
             Return sPath
          End If
       Else
-         If StringUtil.Left(sPath, sDelim.Length) <> sDelim Then
+         If StringHelper.Left(sPath, sDelim.Length) <> sDelim Then
             Return sDelim & sPath
          Else
             Return sPath
@@ -159,13 +139,13 @@ Public Class FilesystemUtil
       Dim sDelim As String = Path.PathSeparator
 
       If bolCheckTail = True Then
-         If StringUtil.Right(sPath, sDelim.Length) <> sDelim Then
+         If StringHelper.Right(sPath, sDelim.Length) <> sDelim Then
             Return sPath & sDelim
          Else
             Return sPath
          End If
       Else
-         If StringUtil.Left(sPath, sDelim.Length) <> sDelim Then
+         If StringHelper.Left(sPath, sDelim.Length) <> sDelim Then
             Return sDelim & sPath
          Else
             Return sPath
@@ -184,7 +164,7 @@ Public Class FilesystemUtil
    ''' <see langword="false"/> regardless of the existence of path.
    ''' </returns>
    Public Shared Function FileExists(ByVal [file] As String) As Boolean
-      Return System.IO.File.Exists(file)
+      Return Exists(file)
    End Function
 
    ''' <summary>
@@ -269,7 +249,7 @@ Public Class FilesystemUtil
             i = 0
             ' Generate a new file name that eventually doesn't exist in the target folder. Stop at 9999!
             tempFile = NormalizePath(destPath) & destFile & "." & String.Format("{0:0000}", i) & destExt
-            Do While File.Exists(tempFile) = True And i < 9999
+            Do While Exists(tempFile) = True And i < 9999
                i += 1
                tempFile = NormalizePath(destPath) & destFile & "." & String.Format("{0:0000}", i) & destExt
             Loop
@@ -291,6 +271,7 @@ Public Class FilesystemUtil
       Return True
 
    End Function
+
 
    Public Shared Function ShortenPathText(ByVal sPath As String, ByVal lMaxLen As Int32, Optional ByVal sDelim As String = "") As String
       '------------------------------------------------------------------------------
@@ -321,10 +302,10 @@ Public Class FilesystemUtil
       End If
 
       For i = (lLen - lMaxLen + 6) To lLen
-         If Mid$(sPath, i, 1) = sDelim Then Exit For
+         If StringHelper.Mid(sPath, i, 1) = sDelim Then Exit For
       Next i
 
-      If InStr(sPath, sDelim) < 1 Then
+      If StringHelper.InStr(sPath, sDelim) < 1 Then
          ' Ist wohl nur eine Datei, ohne Pfadangabe -> die "Mitte" des Namens kürzen
 
          sTemp = sPath
@@ -338,14 +319,14 @@ Public Class FilesystemUtil
          lDiff = lDiff \ 2
 
          If lDiff > 2 Then
-            sTemp = Left$(sPath, lLen \ 2) & "..." & Right$(sPath, lLen \ 2)
+            sTemp = StringHelper.Left(sPath, lLen \ 2) & "..." & StringHelper.Right(sPath, lLen \ 2)
          End If
 
       Else
          If i < lLen Then
-            sTemp = Left$(sPath, 3) & "..." & Right$(sPath, lLen - (i - 1))
+            sTemp = StringHelper.Left(sPath, 3) & "..." & StringHelper.Right(sPath, lLen - (i - 1))
          Else
-            sTemp = Left$(sPath, 3) & "..." & Right$(sPath, lMaxLen - 6)
+            sTemp = StringHelper.Left(sPath, 3) & "..." & StringHelper.Right(sPath, lMaxLen - 6)
          End If
       End If
 

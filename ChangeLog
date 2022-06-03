@@ -1,2 +1,6 @@
+2022-03-14
+	- New method StringUtils.Unwrap()
+	
+	
 2022-03-11
 	- Methods NormalizePath() and DenormalizePath() now check for OS-specific path separators.

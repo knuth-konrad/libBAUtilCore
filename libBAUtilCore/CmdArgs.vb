@@ -2,12 +2,12 @@
 '   Author: Knuth Konrad 2021-04-05
 '  Changed: -
 '------------------------------------------------------------------------------
-Imports libBAUtilCore.StringUtil
+Imports libBAUtilCore.StringHelper
 
-Namespace Utils.CmdArgs
+Namespace Utils.Args
 
    ''' <summary>
-   ''' Commandline parameter handling
+   ''' Command line parameter handling
    ''' See https://docs.microsoft.com/en-us/archive/msdn-magazine/2019/march/net-parse-the-command-line-with-system-commandline
    ''' See https://github.com/commandlineparser/commandline
    ''' </summary>
@@ -17,21 +17,40 @@ Namespace Utils.CmdArgs
 
 #Region "Declarations"
 
+      ''' <summary>
+      ''' OS-dependent default parameter delimiter.
+      ''' </summary>
       Public Enum eArgumentDelimiterStyle
+         ''' <summary>
+         ''' Windows style parameter delimiter '/'
+         ''' </summary>
          Windows
+         ''' <summary>
+         ''' *nix style parameter delimiter '--'
+         ''' </summary>
          POSIX
       End Enum
 
 
       ' Default arguments and key/value delimiter
+      ''' <summary>
+      ''' Standard Windows parameter delimiter.
+      ''' </summary>
       Private Const DELIMITER_ARGS_WIN As String = "/"
+      ''' <summary>
+      ''' Standard POSIX ("Linux") parameter delimiter.
+      ''' </summary>
       Private Const DELIMITER_ARGS_POSIX As String = "--"
+      ''' <summary>
+      ''' Default key=value delimiter.
+      ''' </summary>
       Private Const DELIMITER_VALUE As String = "="
 
-      Dim mbolCaseSensitive As Boolean                ' Treat parameter names as case-sensitive?
-      Dim msDelimiterArgs As String = String.Empty    ' Arguments delimiter, typically "/"
-      Dim msDelimiterValue As String = String.Empty   ' Key/value delimiter, typically "="
-      Dim listValidParameters As List(Of String)      ' List of all valid parameter
+      Dim mbolCaseSensitive As Boolean                   ' Treat parameter names as case-sensitive?
+      Dim msDelimiterArgs As String = String.Empty       ' Arguments delimiter, typically "/"
+      Dim msDelimiterValue As String = String.Empty      ' Key/value delimiter, typically "="
+      Dim msOriginalParameters As String = String.Empty  ' Parameters as passed to the application
+      Dim listValidParameters As List(Of String)         ' List of all valid parameter
 
       Private mcolKeyValues As List(Of KeyValue)
 
@@ -39,6 +58,9 @@ Namespace Utils.CmdArgs
 
 #Region "Properties - Public"
 
+      ''' <summary>
+      ''' Return the number of parameters (key/value)
+      ''' </summary>
       Public ReadOnly Property ParametersCount As Int32
          Get
             If Not Me.KeyValues Is Nothing Then
@@ -49,6 +71,9 @@ Namespace Utils.CmdArgs
          End Get
       End Property
 
+      ''' <summary>
+      ''' Treat parameter names as case-sensitive?
+      ''' </summary>
       Public Property CaseSensitive As Boolean
          Get
             Return mbolCaseSensitive
@@ -58,6 +83,9 @@ Namespace Utils.CmdArgs
          End Set
       End Property
 
+      ''' <summary>
+      ''' Parameter delimiter, e.g. '--' in '--param=value'
+      ''' </summary>
       Public Property DelimiterArgs As String
          Get
             Return msDelimiterArgs
@@ -67,6 +95,9 @@ Namespace Utils.CmdArgs
          End Set
       End Property
 
+      ''' <summary>
+      ''' Name/value delimiter, e.g. '=' in  '--param=value'
+      ''' </summary>
       Public Property DelimiterValue As String
          Get
             Return msDelimiterValue
@@ -85,6 +116,21 @@ Namespace Utils.CmdArgs
          End Set
       End Property
 
+      ''' <summary>
+      ''' Unmodified parameter string as passed to the application
+      ''' </summary>
+      Public Property OriginalPrameters As String
+         Get
+            Return msOriginalParameters
+         End Get
+         Set(value As String)
+            msOriginalParameters = value
+         End Set
+      End Property
+
+      ''' <summary>
+      ''' The parsed command line parameters
+      ''' </summary>
       Public Property KeyValues As List(Of KeyValue)
          Get
             Return mcolKeyValues
@@ -97,6 +143,20 @@ Namespace Utils.CmdArgs
 #End Region
 
 #Region "Methods - Private"
+
+      ''' <summary>
+      ''' Retrieve the parameter delimiter according to the OS' typical flavor
+      ''' </summary>
+      ''' <returns>OS typical parameter delimiter</returns>
+      Private Function GetDefaultDelimiterForOS() As String
+
+         If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows) Then
+            Return DELIMITER_ARGS_WIN
+         Else
+            Return DELIMITER_ARGS_POSIX
+         End If
+
+      End Function
 
       ''' <summary>
       ''' Is a parameter present more than once?
@@ -207,28 +267,16 @@ Namespace Utils.CmdArgs
 
       End Function
 
-      ''' <summary>
-      ''' Set the parameter delimiter according to the OS' typical flavor
-      ''' </summary>
-      ''' <returns></returns>
-      Private Function GetDefaultDelimiterForOS() As String
-
-         If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows) Then
-            Return DELIMITER_ARGS_WIN
-         Else
-            Return DELIMITER_ARGS_POSIX
-         End If
-
-      End Function
 
 #End Region
 
 #Region "Methods - Public"
 
       ''' <summary>
-      ''' Initializes the object by parsing System.Environment.GetCommandLineArgs()
+      ''' Initializes the object by parsing <see cref="System.Environment.GetCommandLineArgs"/>.
       ''' </summary>
-      ''' <returns></returns>
+      ''' <param name="cmdLineArgs">Parameters may optionally passed as a string.</param>
+      ''' <returns><see langword="true"/> if parameters could successfully be parsed.</returns>
       Public Function Initialize(Optional ByVal cmdLineArgs As String = "") As Boolean
 
          ' Clear everything, as we're parsing anew.
@@ -265,10 +313,12 @@ Namespace Utils.CmdArgs
       End Sub
 
       ''' <summary>
-      ''' Determine if a certain parameter is present
+      ''' Verify if a parameter was passed
       ''' </summary>
-      ''' <param name="key">Parameter's name (<see cref="KeyValue.Key"/>)</param>
-      ''' <returns></returns>
+      ''' <param name="key">Name (<see cref="KeyValue.Key"/>) of the parameter</param>
+      ''' <returns><see langword="true"/> if <paramref name="key"/> is present.</returns>
+      ''' <remarks>If <see cref="CaseSensitive"/>=<see langword="true"/> then /param1 and /PARAM1 are 
+      ''' treated as different parameters.</remarks>
       Public Overloads Function HasParameter(ByVal key As String) As Boolean
 
          With Me
@@ -368,7 +418,7 @@ Namespace Utils.CmdArgs
       ''' </summary>
       ''' <param name="key">The parameter's name (<see cref="KeyValue.Key"/></param>
       ''' <param name="caseSensitive">Treat the name as case-sensitive?</param>
-      ''' <returns></returns>
+      ''' <returns>Returns the <see cref="KeyValue.Value"/> of a parameter by its (parameter) name.</returns>
       Public Function GetValueByName(ByVal key As String, Optional ByVal caseSensitive As Boolean = False) As Object
 
          ' Safe guard
@@ -378,7 +428,7 @@ Namespace Utils.CmdArgs
 
          For Each o As KeyValue In Me.KeyValues
             If caseSensitive = False Then
-               If o.Key.ToLower = key Then
+               If o.Key.ToLower = key.ToLower Then
                   Return o.Value
                End If
             Else
@@ -397,6 +447,9 @@ Namespace Utils.CmdArgs
 
 #Region "Constructor/Dispose"
 
+      ''' <summary>
+      ''' Object constructor.
+      ''' </summary>
       Public Sub New()
 
          MyBase.New
@@ -405,6 +458,107 @@ Namespace Utils.CmdArgs
             .DelimiterArgs = GetDefaultDelimiterForOS()
             .DelimiterValue = DELIMITER_VALUE
             .ValidParameters = New List(Of String)
+         End With
+
+      End Sub
+
+      ''' <summary>
+      ''' Object constructor.
+      ''' </summary>
+      ''' <param name="delimiterArgs">Character which separates different parameters, e.g. "/" in /Param1=Value1 /Param2=Value2</param>
+      ''' <param name="delimiterValue">Character which separates the parameter name and its value, e.g. "=" in /Param1=Value1 /Param2=Value2</param>
+      Public Sub New(Optional ByVal delimiterArgs As String = DELIMITER_ARGS_WIN, Optional ByVal delimiterValue As String = DELIMITER_VALUE)
+
+         MyBase.New
+
+         ' Safe guard
+         If delimiterArgs.Length < 1 OrElse delimiterValue.Length < 1 Then
+            Throw New ArgumentOutOfRangeException("Empty argument or key/value delimiter are not allowed.")
+         End If
+
+         With Me
+            .DelimiterArgs = delimiterArgs
+            .DelimiterValue = delimiterValue
+            .KeyValues = New List(Of KeyValue)
+         End With
+
+      End Sub
+
+      ''' <summary>
+      ''' Object constructor.
+      ''' </summary>
+      ''' <param name="delimiterArgsType">Character which separates different parameters as defined in <see cref="eArgumentDelimiterStyle"/></param>
+      ''' <param name="delimiterValue">Character which separates the parameter name and its value, e.g. "=" in /Param1=Value1 /Param2=Value2</param>
+      Public Sub New(Optional ByVal delimiterArgsType As eArgumentDelimiterStyle = eArgumentDelimiterStyle.Windows, Optional ByVal delimiterValue As String = DELIMITER_VALUE)
+
+         MyBase.New
+
+         ' Safe guard
+         If delimiterValue.Length < 1 Then
+            Throw New ArgumentOutOfRangeException("Empty argument or key/value delimiter are not allowed.")
+         End If
+
+         With Me
+            If delimiterArgsType = eArgumentDelimiterStyle.Windows Then
+               .DelimiterArgs = DELIMITER_ARGS_WIN
+            Else
+               .DelimiterArgs = DELIMITER_ARGS_POSIX
+            End If
+            .DelimiterValue = delimiterValue
+            .KeyValues = New List(Of KeyValue)
+         End With
+
+      End Sub
+
+      ''' <summary>
+      ''' Object constructor.
+      ''' </summary>
+      ''' <param name="keyValueList">Command line parameters as a List(Of <see cref="KeyValue"/></param>
+      ''' <param name="delimiterArgs">Character which separates different parameters, e.g. "/" in /Param1=Value1 /Param2=Value2</param>
+      ''' <param name="delimiterValue">Character which separates the parameter name and its value, e.g. "=" in /Param1=Value1 /Param2=Value2</param>
+      Public Sub New(ByVal keyValueList As List(Of KeyValue), Optional ByVal delimiterArgs As String = DELIMITER_ARGS_WIN,
+                  Optional ByVal delimiterValue As String = DELIMITER_VALUE)
+
+         MyBase.New
+
+         ' Safe guard
+         If delimiterArgs.Length < 1 OrElse delimiterValue.Length < 1 Then
+            Throw New ArgumentOutOfRangeException("Empty argument or key/value delimiter are not allowed.")
+         End If
+
+         With Me
+            .DelimiterArgs = delimiterArgs
+            .DelimiterValue = delimiterValue
+            .KeyValues = keyValueList
+         End With
+
+      End Sub
+
+
+      ''' <summary>
+      ''' Object constructor.
+      ''' </summary>
+      ''' <param name="keyValueList">Command line parameters as a List(Of <see cref="KeyValue"/></param>
+      ''' <param name="delimiterArgsType">Character which separates different parameters as defined in <see cref="eArgumentDelimiterStyle"/></param>
+      ''' <param name="delimiterValue">Character which separates the parameter name and its value, e.g. "=" in /Param1=Value1 /Param2=Value2</param>
+      Public Sub New(ByVal keyValueList As List(Of KeyValue), Optional ByVal delimiterArgsType As eArgumentDelimiterStyle = eArgumentDelimiterStyle.Windows,
+                  Optional ByVal delimiterValue As String = DELIMITER_VALUE)
+
+         MyBase.New
+
+         ' Safe guard
+         If delimiterValue.Length < 1 Then
+            Throw New ArgumentOutOfRangeException("Empty argument or key/value delimiter are not allowed.")
+         End If
+
+         With Me
+            If delimiterArgsType = eArgumentDelimiterStyle.Windows Then
+               .DelimiterArgs = DELIMITER_ARGS_WIN
+            Else
+               .DelimiterArgs = DELIMITER_ARGS_POSIX
+            End If
+            .DelimiterValue = delimiterValue
+            .KeyValues = keyValueList
          End With
 
       End Sub
@@ -425,107 +579,6 @@ Namespace Utils.CmdArgs
 
       End Sub
 
-      Public Sub New(Optional ByVal delimiterArgs As String = DELIMITER_ARGS_WIN, Optional ByVal delimiterValue As String = DELIMITER_VALUE,
-                     Optional ByVal validParams As List(Of String) = Nothing)
-
-         MyBase.New
-
-         ' Safe guard
-         If delimiterArgs.Length < 1 OrElse delimiterValue.Length < 1 Then
-            Throw New ArgumentOutOfRangeException("Empty argument or key/value delimiter are not allowed.")
-         End If
-
-         With Me
-            .DelimiterArgs = delimiterArgs
-            .DelimiterValue = delimiterValue
-            .KeyValues = New List(Of KeyValue)
-            If Not validParams Is Nothing Then
-               .ValidParameters = validParams
-            Else
-               .ValidParameters = New List(Of String)
-            End If
-         End With
-
-      End Sub
-
-      Public Sub New(Optional ByVal delimiterArgsType As eArgumentDelimiterStyle = eArgumentDelimiterStyle.Windows,
-                     Optional ByVal delimiterValue As String = DELIMITER_VALUE,
-                     Optional ByVal validParams As List(Of String) = Nothing)
-
-         MyBase.New
-
-         ' Safe guard
-         If delimiterValue.Length < 1 Then
-            Throw New ArgumentOutOfRangeException("Empty argument or key/value delimiter are not allowed.")
-         End If
-
-         With Me
-            If delimiterArgsType = eArgumentDelimiterStyle.Windows Then
-               .DelimiterArgs = DELIMITER_ARGS_WIN
-            Else
-               .DelimiterArgs = DELIMITER_ARGS_POSIX
-            End If
-            .DelimiterValue = delimiterValue
-            .KeyValues = New List(Of KeyValue)
-            If Not validParams Is Nothing Then
-               .ValidParameters = validParams
-            Else
-               .ValidParameters = New List(Of String)
-            End If
-         End With
-
-      End Sub
-
-      Public Sub New(ByVal keyValueList As List(Of KeyValue), Optional ByVal delimiterArgs As String = DELIMITER_ARGS_WIN,
-                     Optional ByVal delimiterValue As String = DELIMITER_VALUE)
-
-         MyBase.New
-
-         ' Safe guard
-         If delimiterArgs.Length < 1 OrElse delimiterValue.Length < 1 Then
-            Throw New ArgumentOutOfRangeException("Empty argument or key/value delimiter are not allowed.")
-         End If
-
-         With Me
-            .DelimiterArgs = delimiterArgs
-            .DelimiterValue = delimiterValue
-            .KeyValues = keyValueList
-            ' Create the list of valid parameter names from the passed collection
-            .ValidParameters = New List(Of String)
-            For Each o As KeyValue In .KeyValues
-               .ValidParameters.Add(o.Key)
-            Next
-         End With
-
-      End Sub
-
-      Public Sub New(ByVal keyValueList As List(Of KeyValue), Optional ByVal delimiterArgsType As eArgumentDelimiterStyle = eArgumentDelimiterStyle.Windows,
-                  Optional ByVal delimiterValue As String = DELIMITER_VALUE)
-
-         MyBase.New
-
-         ' Safe guard
-         If delimiterValue.Length < 1 Then
-            Throw New ArgumentOutOfRangeException("Empty argument or key/value delimiter are not allowed.")
-         End If
-
-         With Me
-            If delimiterArgsType = eArgumentDelimiterStyle.Windows Then
-               .DelimiterArgs = DELIMITER_ARGS_WIN
-            Else
-               .DelimiterArgs = DELIMITER_ARGS_POSIX
-            End If
-            .DelimiterValue = delimiterValue
-            .KeyValues = keyValueList
-            ' Create the list of valid parameter names from the passed collection
-            .ValidParameters = New List(Of String)
-            For Each o As KeyValue In .KeyValues
-               .ValidParameters.Add(o.Key)
-            Next
-         End With
-
-      End Sub
-
       Public Overloads Sub Dispose() Implements IDisposable.Dispose
          GC.SuppressFinalize(Me)
       End Sub
@@ -534,11 +587,13 @@ Namespace Utils.CmdArgs
 
    End Class
 
+   ''' <summary>
+   ''' A single command line parameter + its value, i.e. /parameter=value.
+   ''' </summary>
    Public Class KeyValue
+      Inherits KeyValueBase
 
       Private msHelpText As String = String.Empty
-      Private msKeyLong As String = String.Empty
-      Private msKeyShort As String = String.Empty
       Private msOriginalParameter As String = String.Empty
 
       Private moValue As Object
@@ -552,6 +607,118 @@ Namespace Utils.CmdArgs
          End Get
          Set(value As String)
             msHelpText = value
+         End Set
+      End Property
+
+      ''' <summary>
+      ''' The full original parameter, e.g. /file=MyFile.txt
+      ''' </summary>
+      ''' <returns></returns>
+      Public Property OriginalParameter As String
+         Get
+            Return msOriginalParameter
+         End Get
+         Set(value As String)
+            msOriginalParameter = value
+         End Set
+      End Property
+
+      ''' <summary>
+      ''' Parameter name, e.g. 'file' or 'f' from /file=MyFile.txt  or /f=MyFile.txt
+      ''' </summary>
+      Public ReadOnly Property Key As String
+         Get
+            ' KeyLong takes precedences
+            With Me
+               If .KeyLong.Length > 0 Then
+                  Return .KeyLong
+               Else
+                  Return .KeyShort
+               End If
+            End With
+         End Get
+      End Property
+
+      ''' <summary>
+      ''' Parameter value, e.g. 'MyFile.txt' from /file=MyFile.txt
+      ''' </summary>
+      Public Property Value As Object
+         Get
+            Return moValue
+         End Get
+         Set(value As Object)
+            moValue = value
+         End Set
+      End Property
+
+#Region "Methods - Public"
+
+      ''' <summary>
+      ''' Returns this parameter name.
+      ''' </summary>
+      ''' <returns><see cref="KeyValue.Key"/> and <see cref="KeyValue.HelpText"/> when available.</returns>
+      Public Overrides Function ToString() As String
+
+         With Me
+            Dim sText As String = .Key
+            If .HelpText.Length < 1 Then
+               Return sText
+            Else
+               Return sText & ": " & .HelpText
+            End If
+         End With
+
+      End Function
+
+#End Region
+
+      ''' <summary>
+      ''' Create a new instance of this object.
+      ''' </summary>
+      ''' <param name="originalParameter">Key/value pair as originally passed via command line, e.g. /file=MyFile.txt</param>
+      ''' <param name="keyShort">Short parameter name, e.g. /v</param>
+      ''' <param name="keyLong">Verbose parameter name, e.g. /version</param>
+      ''' <param name="value">Value of this parameter</param>
+      ''' <param name="helpText">Explanatory text for this parameter</param>
+      Public Sub New(ByVal originalParameter As String,
+                     Optional ByVal keyShort As String = "",
+                     Optional ByVal keyLong As String = "",
+                     Optional ByVal value As Object = Nothing,
+                     Optional ByVal helpText As String = "")
+
+         MyBase.New
+
+         With Me
+            .HelpText = helpText
+            .KeyLong = keyLong
+            .KeyShort = keyShort
+            .OriginalParameter = originalParameter
+            .Value = value
+         End With
+
+      End Sub
+
+   End Class
+
+   ''' <summary>
+   ''' Base/parent KeyValue class
+   ''' </summary>
+   Public Class KeyValueBase
+
+      Private msKeyLong As String = String.Empty
+      Private msKeyShort As String = String.Empty
+      Private mbolIsMandatory As Boolean
+
+      ''' <summary>
+      ''' This parameter is mandatory
+      ''' </summary>
+      ''' <returns></returns>
+      Public Property IsMandatory As Boolean
+         Get
+            Return mbolIsMandatory
+         End Get
+         Set(value As Boolean)
+            mbolIsMandatory = value
          End Set
       End Property
 
@@ -580,78 +747,24 @@ Namespace Utils.CmdArgs
       End Property
 
       ''' <summary>
-      ''' Parameter name, e.g. 'file' or 'f' from /file=MyFile.txt  or /f=MyFile.txt
+      ''' Short And long parameter name
+      ''' <param name="shortKey">Short parameter name, e.g. /f</param>
+      ''' <param name="longKey">'Outspoken' parameter name, e.g. /file</param>
       ''' </summary>
-      Public ReadOnly Property Key As String
-         Get
-            ' KeyLong takes precedences
-            With Me
-               If .KeyLong.Length > 0 Then
-                  Return .KeyLong
-               Else
-                  Return .KeyShort
-               End If
-            End With
-         End Get
-      End Property
+      Public Sub New(Optional ByVal shortKey As String = "", Optional ByVal longKey As String = "")
+         KeyLong = longKey
+         KeyShort = shortKey
+      End Sub
 
       ''' <summary>
-      ''' The full original parameter, e.g. /file=MyFile.txt
+      ''' Short And long parameter name
       ''' </summary>
-      ''' <returns></returns>
-      Public Property OriginalParameter As String
-         Get
-            Return msOriginalParameter
-         End Get
-         Set(value As String)
-            msOriginalParameter = value
-         End Set
-      End Property
-
-
-      ''' <summary>
-      ''' Parameter value, e.g. 'MyFile.txt' from /file=MyFile.txt
-      ''' </summary>
-      Public Property Value As Object
-         Get
-            Return moValue
-         End Get
-         Set(value As Object)
-            moValue = value
-         End Set
-      End Property
-
-#Region "Methods - Public"
-
-      Public Overrides Function ToString() As String
-
-         With Me
-            Dim sText As String = .Key
-            If .HelpText.Length < 1 Then
-               Return sText
-            Else
-               Return sText & ": " & .HelpText
-            End If
-         End With
-
-      End Function
-
-#End Region
-
-      Public Sub New(ByVal originalParam As String, Optional ByVal keyShort As String = "",
-                     Optional ByVal keyLong As String = "", Optional ByVal value As Object = Nothing,
-                     Optional ByVal helpText As String = "")
-
-         MyBase.New
-
-         With Me
-            .HelpText = helpText
-            .KeyLong = keyLong
-            .KeyShort = keyShort
-            .OriginalParameter = originalParam
-            .Value = value
-         End With
-
+      ''' <param name="o">
+      ''' <see cref="KeyValueBase"/> object from which to take <see cref="KeyValueBase.KeyShort"/> and <see cref="KeyValue.KeyLong"/> names.
+      ''' </param>
+      Public Sub New(ByVal o As KeyValueBase)
+         KeyLong = o.KeyLong
+         KeyShort = o.KeyShort
       End Sub
 
    End Class

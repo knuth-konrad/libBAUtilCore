@@ -8,7 +8,7 @@ Imports System.Xml.Serialization
 ''' <summary>
 ''' General object helpers
 ''' </summary>
-Public Class ObjectUtil
+Public Class ObjectHelper
 
 #Region "Serialization"
    ''' <summary>
@@ -114,6 +114,7 @@ Public Class ObjectUtil
    ''' Determine if an object is serializable.
    ''' </summary>
    ''' <param name="obj">Check this object</param>
+   ''' <returns><see langword="true"/> if <paramref name="obj"/> can be serualized, <see langword="false"/> otherwise.</returns>
    Public Shared Function IsSerializable(ByVal obj As Object) As Boolean
       '------------------------------------------------------------------------------
       'Prereq.  : -
@@ -143,7 +144,7 @@ Public Class ObjectUtil
    ''' True = Serialize without XML namespace declaration
    ''' (xmlnsxsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd = "http://www.w3.org/2001/XMLSchema")
    ''' </param>
-   ''' <returns></returns>
+   ''' <returns>Serialized <paramref name="obj"/> as an (XML) string.</returns>
    Public Shared Function Serialize(ByVal obj As Object, Optional ByVal omitXmlDeclaration As Boolean = False,
                                     Optional ByVal omitXmlNamespace As Boolean = False) As String
       '------------------------------------------------------------------------------
@@ -185,7 +186,8 @@ Public Class ObjectUtil
    ''' Deserialize a XML (string) to an object.
    ''' </summary>
    ''' <param name="xmlString">XML as String compatible with .NET's Deserialize method.</param>
-   ''' <param name="objType">Deserialize to this object type</param>
+   ''' <param name="objType">Deserialize to this object type.</param>
+   ''' <returns>Object of type <paramref name="objType"/>.</returns>
    Public Overloads Shared Function Deserialize(ByVal xmlString As String, ByVal objType As Type) As Object
       '------------------------------------------------------------------------------
       'Prereq.  : -
@@ -208,7 +210,7 @@ Public Class ObjectUtil
    ''' </summary>
    ''' <typeparam name="T">Return an object of this class.</typeparam>
    ''' <param name="xmlString">XML as String compatible with .NET's Deserialize method.</param>
-   ''' <returns></returns>
+   ''' <returns>Object of type <typeparamref name="T"/>.</returns>
    Public Shared Function DeserializeAsClass(Of T As Class)(ByVal xmlString As String) As T
       '------------------------------------------------------------------------------
       'Prereq.  : -

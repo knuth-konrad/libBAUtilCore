@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-16"?>
-<DevTrackerData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SolutionTotalEditTime="PT1M34.8241128S" SolutionTotalViewTime="PT33M52.7692758S" SolutionTotalDebugTime="PT0S">
+<DevTrackerData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SolutionTotalEditTime="PT36M13.6044095S" SolutionTotalViewTime="PT1H17M50.3510879S" SolutionTotalDebugTime="PT0S">
   <FileVersion>
     <Major>1</Major>
     <Minor>0</Minor>
   </FileVersion>
-  <SolutionFolder>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore</SolutionFolder>
+  <SolutionFolder>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore</SolutionFolder>
   <SolutionCreattionDate>2021-07-21T16:01:21.0865023+02:00</SolutionCreattionDate>
   <ProjectsCreatedDateList>
     <ProjectCreated>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
       <CreatedDate>2021-07-08T15:42:59.3513081+02:00</CreatedDate>
     </ProjectCreated>
   </ProjectsCreatedDateList>
   <SessionTimeList />
   <LastSessionTimeList>
-    <DevTrackerDataItem ViewActiveTime="PT7M26.9519543S" EditActiveTime="PT1M4.0836784S">
-      <ModifiedDate>2021-07-23T14:52:46.8802534+02:00</ModifiedDate>
-      <ModifiedBy>kkonrad</ModifiedBy>
-      <EditedCount>1</EditedCount>
+    <DevTrackerDataItem ViewActiveTime="PT2M8.2476889S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
       <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-23T14:03:53.2910571+02:00</CreatedDate>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-04-04T09:20:54.7512006+02:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
   </LastSessionTimeList>
@@ -31,135 +30,221 @@
       <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
       <EditedCount>0</EditedCount>
       <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\baUtil.vb</Item>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\baUtil.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
       <CreatedDate>2021-07-22T14:24:33.6033828+02:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT28M6.7835746S" EditActiveTime="PT1M34.8231451S">
-      <ModifiedDate>2021-07-23T14:52:46.8802534+02:00</ModifiedDate>
+    <DevTrackerDataItem ViewActiveTime="PT51M18.7011483S" EditActiveTime="PT6M13.9553411S">
+      <ModifiedDate>2022-03-28T14:21:50.4188412+02:00</ModifiedDate>
       <ModifiedBy>kkonrad</ModifiedBy>
-      <EditedCount>2</EditedCount>
-      <ViewedCount>4</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
+      <EditedCount>4</EditedCount>
+      <ViewedCount>7</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
       <CreatedDate>2021-07-21T17:36:54.5322988+02:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT2M50.6407272S" EditActiveTime="PT0S">
+    <DevTrackerDataItem ViewActiveTime="PT20M50.5290067S" EditActiveTime="PT19M54.9716189S">
+      <ModifiedDate>2022-03-28T16:04:14.2772607+02:00</ModifiedDate>
+      <ModifiedBy>kkonrad</ModifiedBy>
+      <EditedCount>3</EditedCount>
+      <ViewedCount>6</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2021-07-21T16:01:26.7078392+02:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M4.7521725S" EditActiveTime="PT0S">
       <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
       <EditedCount>0</EditedCount>
-      <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
+      <ViewedCount>3</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\FilesystemUtil.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-21T16:01:26.7078392+02:00</CreatedDate>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-15T15:10:09.3535464+01:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
     <DevTrackerDataItem ViewActiveTime="PT5.223787S" EditActiveTime="PT0S">
       <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
       <EditedCount>0</EditedCount>
       <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\Module1.vb</Item>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\Module1.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
       <CreatedDate>2021-07-22T14:24:58.3253109+02:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT1M38.2208515S" EditActiveTime="PT0S">
+    <DevTrackerDataItem ViewActiveTime="PT1M12.1072778S" EditActiveTime="PT0S">
       <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
       <EditedCount>0</EditedCount>
-      <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\StringUtil.vb</Item>
+      <ViewedCount>2</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ObjectUtil.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-15T13:22:49.4261296+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2M7.1374257S" EditActiveTime="PT10M4.6774495S">
+      <ModifiedDate>2022-03-24T08:57:55.955826+01:00</ModifiedDate>
+      <ModifiedBy>kkonrad</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\StringUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
       <CreatedDate>2021-07-22T14:25:49.6696495+02:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
   </TotalTimeList>
   <HistoryTimeList>
-    <DevTrackerDataItem ViewActiveTime="PT7M26.9479532S" EditActiveTime="PT1M4.0836784S">
-      <ModifiedDate>2021-07-23T14:52:46.8802534+02:00</ModifiedDate>
+    <DevTrackerDataItem ViewActiveTime="PT2M8.2427258S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-04-04T09:20:54.7512006+02:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT21.288328S" EditActiveTime="PT16.1340215S">
+      <ModifiedDate>2022-03-28T16:04:14.2772607+02:00</ModifiedDate>
       <ModifiedBy>kkonrad</ModifiedBy>
       <EditedCount>1</EditedCount>
       <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-23T14:03:53.2910571+02:00</CreatedDate>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-28T16:03:42.6744324+02:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT4M4.783634S" EditActiveTime="PT0S">
-      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
-      <EditedCount>0</EditedCount>
-      <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
-      <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-23T13:29:35.0234347+02:00</CreatedDate>
-      <ViewedBy>kkonrad</ViewedBy>
-    </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT1M38.2208515S" EditActiveTime="PT0S">
-      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
-      <EditedCount>0</EditedCount>
-      <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\StringUtil.vb</Item>
-      <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-22T14:25:49.6696495+02:00</CreatedDate>
-      <ViewedBy>kkonrad</ViewedBy>
-    </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT5.223787S" EditActiveTime="PT0S">
-      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
-      <EditedCount>0</EditedCount>
-      <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\Module1.vb</Item>
-      <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-22T14:24:58.3253109+02:00</CreatedDate>
-      <ViewedBy>kkonrad</ViewedBy>
-    </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT1M11.9013032S" EditActiveTime="PT0S">
-      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
-      <EditedCount>0</EditedCount>
-      <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\baUtil.vb</Item>
-      <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-22T14:24:33.6033828+02:00</CreatedDate>
-      <ViewedBy>kkonrad</ViewedBy>
-    </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT14M51.9615988S" EditActiveTime="PT30.7394667S">
-      <ModifiedDate>2021-07-22T17:29:43.814759+02:00</ModifiedDate>
+    <DevTrackerDataItem ViewActiveTime="PT10M36.7951157S" EditActiveTime="PT3.7924454S">
+      <ModifiedDate>2022-03-28T14:21:50.4188412+02:00</ModifiedDate>
       <ModifiedBy>kkonrad</ModifiedBy>
       <EditedCount>1</EditedCount>
       <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-22T09:22:56.2528867+02:00</CreatedDate>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-28T14:21:11.6055494+02:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT1M43.0933907S" EditActiveTime="PT0S">
+    <DevTrackerDataItem ViewActiveTime="PT10M43.088361S" EditActiveTime="PT0S">
       <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
       <EditedCount>0</EditedCount>
       <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-21T17:36:54.5322988+02:00</CreatedDate>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-24T15:26:09.9428908+01:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
-    <DevTrackerDataItem ViewActiveTime="PT2M50.6407272S" EditActiveTime="PT0S">
+    <DevTrackerDataItem ViewActiveTime="PT1M52.0350829S" EditActiveTime="PT4M35.3397506S">
+      <ModifiedDate>2022-03-24T15:01:34.9545314+01:00</ModifiedDate>
+      <ModifiedBy>kkonrad</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\CmdArgs.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-24T14:55:16.7067497+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT10M17.4971911S" EditActiveTime="PT1.2519565S">
+      <ModifiedDate>2022-03-24T10:26:01.027176+01:00</ModifiedDate>
+      <ModifiedBy>kkonrad</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-24T10:24:08.4057325+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT18.1397306S" EditActiveTime="PT0S">
       <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
       <EditedCount>0</EditedCount>
       <ViewedCount>1</ViewedCount>
-      <Item>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\FilesystemUtil.vb</Item>
       <ItemType>ProjectItem</ItemType>
-      <ProjectName>U:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
-      <CreatedDate>2021-07-21T16:01:26.7078392+02:00</CreatedDate>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-24T10:23:50.2650006+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3M2.7508551S" EditActiveTime="PT19M37.5856409S">
+      <ModifiedDate>2022-03-24T10:23:00.4913201+01:00</ModifiedDate>
+      <ModifiedBy>kkonrad</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-24T08:58:06.7944779+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT4.7951354S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ObjectUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-24T08:58:01.9973684+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT28.9165742S" EditActiveTime="PT10M4.6774495S">
+      <ModifiedDate>2022-03-24T08:57:55.955826+01:00</ModifiedDate>
+      <ModifiedBy>kkonrad</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\StringUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-24T08:46:51.9421254+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT16.5646203S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\FilesystemUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-24T08:46:36.969405+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT30.0488198S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\FilesystemUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-15T15:10:09.3535464+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M7.3121424S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ObjectUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-15T13:22:49.4261296+01:00</CreatedDate>
+      <ViewedBy>kkonrad</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2M10.1121906S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\ConsoleUtil.vb</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>C:\DATA\VBNET\zLibrary\BasicAware\libBAUtilCore\libBAUtilCore\libBAUtilCore.vbproj</ProjectName>
+      <CreatedDate>2022-03-15T11:51:15.1058859+01:00</CreatedDate>
       <ViewedBy>kkonrad</ViewedBy>
     </DevTrackerDataItem>
   </HistoryTimeList>

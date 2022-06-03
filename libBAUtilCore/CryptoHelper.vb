@@ -79,6 +79,8 @@ Public NotInheritable Class baCrypto3DES
       TripleDes.IV = TruncateHash(String.Empty, TripleDes.BlockSize \ 8)
    End Sub
 
+#End Region
+
    Private Function TruncateHash(ByVal key As String, ByVal length As Int32) As Byte()
 
       Dim sha1 As New SHA1CryptoServiceProvider
@@ -93,9 +95,7 @@ Public NotInheritable Class baCrypto3DES
 
    End Function
 
-#End Region
-
-End Class
+End Class   '// baCrypto3DES
 
 ''' <summary>
 ''' En-/Decrypting helper (AES).
@@ -175,6 +175,8 @@ Public NotInheritable Class baCryptoAES
       AES.IV = TruncateHash("", AES.BlockSize \ 8)
    End Sub
 
+#End Region
+
    Private Function TruncateHash(ByVal key As String, ByVal length As Int32) As Byte()
 
       Dim sha1 As New SHA1CryptoServiceProvider
@@ -188,7 +190,5 @@ Public NotInheritable Class baCryptoAES
       Return hash
 
    End Function
-
-#End Region
 
 End Class
