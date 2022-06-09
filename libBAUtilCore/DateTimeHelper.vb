@@ -680,6 +680,81 @@ Imports libBAUtilCore.StringHelper
    End Function
 
    ''' <summary>
+   ''' Converts a IATA date string to a DateTime value
+   ''' </summary>
+   ''' <param name="iataDate"></param>
+   ''' <returns></returns>
+   Public Function ToDateFromIATA(ByVal iataDate As String) As DateTime
+
+      ' Dim sDay, sMonth, sYear As String
+      Dim lDay, lMonth, lYear As Int32
+      Dim lTemp As Int32
+
+
+      ' Safe guard
+      If iataDate.Length <> 5 Or iataDate.Length <> 7 Then
+         Throw New System.ArgumentException("Invalid IATA date: " & iataDate)
+      End If
+
+
+      ' sDay = Left(iataDate, 2)
+      lDay = Convert.ToInt32(Left(iataDate, 2))
+
+      If iataDate.Length = 5 Then
+         ' sYear = Now.Year.ToString
+         lYear = Now.Year
+      Else
+         ' sYear = Left(Now.Year.ToString, 2) & Right(iataDate, 2)
+         lYear = Convert.ToInt32(Left(Now.Year.ToString, 2) & Right(iataDate, 2))
+      End If
+
+
+      Select Case Mid(iataDate.ToUpper, 3, 3)
+         Case "JAN"
+            ' sMonth = "01"
+            lMonth = 1
+         Case "FEB"
+            ' sMonth = "02"
+            lMonth = 2
+         Case "MAR"
+            ' sMonth = "03"
+            lMonth = 3
+         Case "APR"
+            ' sMonth = "04"
+            lMonth = 4
+         Case "MAY"
+            ' sMonth = "05"
+            lMonth = 5
+         Case "JUN"
+            ' sMonth = "06"
+            lMonth = 6
+         Case "JUL"
+            ' sMonth = "07"
+            lMonth = 7
+         Case "AUG"
+            ' sMonth = "08"
+            lMonth = 8
+         Case "SEP"
+            ' sMonth = "09"
+            lMonth = 9
+         Case "OCT"
+            ' sMonth = "10"
+            lMonth = 10
+         Case "NOV"
+            ' sMonth = "11"
+            lMonth = 11
+         Case "DEC"
+            ' sMonth = "12"
+            lMonth = 12
+         Case Else
+            Throw New System.ArgumentException("Invalid IATA month: " & Mid(iataDate, 3, 3))
+      End Select
+
+      Return New DateTime(lYear, lMonth, lDay)
+
+   End Function
+
+   ''' <summary>
    ''' Converts the value of the current DateTime object to a Windows file time.
    ''' </summary>
    ''' <returns>The value of the current DateTime object expressed as a Windows file time.</returns>
@@ -978,9 +1053,9 @@ Imports libBAUtilCore.StringHelper
    ''' Initializes a new instance of the <see cref="System.DateTime"/> structure to the specified [year], month, day.
    ''' </summary>
    ''' <param name="iataDate">The year (1 through 9999).</param>
-   ''' <remarks><paramref name="iataDate"/> must be either in the form of <see cref="IATADateShort"/> or <see cref="IATADateShort"/></remarks>
+   ''' <remarks><paramref name="iataDate"/> must be either in the form of <see cref="IATADateLong"/> or <see cref="IATADateShort"/></remarks>
    Public Sub New(ByVal iataDate As String)
-      Me.Date = Me.ToDate(iataDate)
+      Me.Date = Me.ToDateFromIATA(iataDate)
    End Sub
 
 #End Region
