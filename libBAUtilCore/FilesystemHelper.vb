@@ -195,7 +195,7 @@ Public Class FilesystemHelper
    ''' </summary>
    ''' <returns>OS typical parameter delimiter</returns>
    Public Shared Function GetDefaultPathDelimiterForOS() As String
-      If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows)) Then
+      If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows) Then
          Return DELIMITER_PATH_WIN
       Else
          Return DELIMITER_PATH_POSIX
