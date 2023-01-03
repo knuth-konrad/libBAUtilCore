@@ -9,6 +9,15 @@ Public Class FilesystemHelper
 
 
    ''' <summary>
+   ''' Standard Windows path delimiter.
+   ''' </summary>
+   Private Const DELIMITER_PATH_WIN As String = "\"
+   ''' <summary>
+   ''' Standard POSIX ("Linux") path delimiter.
+   ''' </summary>
+   Private Const DELIMITER_PATH_POSIX As String = "/"
+
+   ''' <summary>
    ''' Ensure a path does NOT end with a path delimiter
    ''' </summary>
    ''' <param name="sPath">
@@ -179,6 +188,20 @@ Public Class FilesystemHelper
    Public Shared Function FolderExists(ByVal folder As String) As Boolean
       Return Directory.Exists(folder)
    End Function
+
+
+   ''' <summary>
+   ''' Retrieve the parameter delimiter according to the OS' typical flavor
+   ''' </summary>
+   ''' <returns>OS typical parameter delimiter</returns>
+   Public Shared Function GetDefaultPathDelimiterForOS() As String
+      If System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows)) Then
+         Return DELIMITER_PATH_WIN
+      Else
+         Return DELIMITER_PATH_POSIX
+      End If
+   End Function
+
 
    ''' <summary>
    ''' Creates a backup of a file by copying/moving it from the source 
