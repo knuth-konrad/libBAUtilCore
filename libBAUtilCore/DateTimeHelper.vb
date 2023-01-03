@@ -556,7 +556,7 @@ Imports libBAUtilCore.StringHelper
       ElseIf iataDate.Length = 7 Then
          sDay = Left(iataDate, 2)
          sMonth = iataDate.Substring(2, 3)
-         sYear = Right(iataDate, 2)
+         sYear = Left(Now.Year.ToString, 2) & Right(iataDate, 2)
       End If
 
       Select Case sMonth.ToLower
