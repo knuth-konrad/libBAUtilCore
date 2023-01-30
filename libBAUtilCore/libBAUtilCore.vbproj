@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>libBAUtilCore</RootNamespace>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyVersion>1.0.21.21125</AssemblyVersion>
     <FileVersion>1.0.21.25905</FileVersion>
     <OptionStrict>On</OptionStrict>
