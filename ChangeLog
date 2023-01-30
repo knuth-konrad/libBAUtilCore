@@ -1,5 +1,10 @@
+2023-01-03
+	- New method: FilesystemHelper.GetDefaultPathDelimiterForOS()
+
+
 2022-06-09
 	- FIX: method DateTimeHelper.ToDate(iataDate) got the year wrong
+
 
 2022-03-14
 	- New method StringUtils.Unwrap()
