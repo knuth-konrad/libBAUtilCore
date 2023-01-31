@@ -1056,21 +1056,21 @@ Public Class StringHelper
       Return sResult
    End Function
 
-   ''' <summary>
-   ''' Constant for a double quotation mark (").
-   ''' </summary>
-   ''' <param name="n">Number of DQs to return</param>
-   ''' <returns><paramref name="n"/> "</returns>
-   Public Shared Function vbDobuleQuote(Optional ByVal n As Int32 = 1) As String
-      Return vbQuote(n)
-   End Function
+  ''' <summary>
+  ''' Constant for a double quotation mark (").
+  ''' </summary>
+  ''' <param name="n">Number of DQs to return</param>
+  ''' <returns><paramref name="n"/> "</returns>
+  Public Shared Function vbDoubleQuote(Optional ByVal n As Int32 = 1) As String
+    Return vbQuote(n)
+  End Function
 
-   ''' <summary>
-   ''' Constant for a single quotation mark/apostrophe (').
-   ''' </summary>
-   ''' <param name="n">Number of SQs to return</param>
-   ''' <returns><paramref name="n"/> "</returns>
-   Public Shared Function vbSingleQuote(Optional ByVal n As Int32 = 1) As String
+  ''' <summary>
+  ''' Constant for a single quotation mark/apostrophe (').
+  ''' </summary>
+  ''' <param name="n">Number of SQs to return</param>
+  ''' <returns><paramref name="n"/> "</returns>
+  Public Shared Function vbSingleQuote(Optional ByVal n As Int32 = 1) As String
       Dim sResult As String = String.Empty
       For i As Int32 = 1 To n
          sResult &= System.Convert.ToChar(39).ToString
