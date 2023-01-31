@@ -193,16 +193,141 @@ Public Class ConsoleHelper
       End If
 
    End Sub
+  ''' <summary>
+  ''' Output text indented by (<paramref name="indentBy"/>) spaces
+  ''' </summary>
+  ''' <param name="text">Output text</param>
+  ''' <param name="indentBy">Number of leading spaces</param>
+  ''' <param name="addNewLine">Add a new line after the last line of <paramref name="text"/></param>
+  Public Shared Sub WriteIndent(text As String(), indentBy As Int32, Optional addNewLine As Boolean = True)
+    Dim i As Integer = 0
+    While i <= text.Length - 2
+      Console.WriteLine(String.Concat(New [String](Convert.ToChar(" "), indentBy) + text(i)))
+      i += 1
+    End While
+    If addNewLine = True Then
+      Console.WriteLine(String.Concat(New [String](Convert.ToChar(" "), indentBy) + text(text.Length - 1)))
+    Else
+      Console.Write(String.Concat(New [String](Convert.ToChar(" "), indentBy) + text(text.Length - 1)))
+    End If
+  End Sub
+#End Region
+
+#Region "WriteOK"
+
+  ''' <summary>
+  ''' Output text in the 'OK' color
+  ''' </summary>
+  ''' <param name="text">Output text</param>
+  ''' <param name="bgColor">Background color.</param>
+  ''' <param name="fgColor">Foreground color.</param>
+  ''' <param name="addNewLine">Add a new line after the last line of <paramref name="text"/></param>
+  Public Shared Sub WriteOK(text As String, Optional fgColor As ConsoleColor = ConsoleColor.Green, Optional bgColor As ConsoleColor = ConsoleColor.Black, Optional addNewLine As Boolean = True)
+
+    Console.BackgroundColor = bgColor
+    Console.ForegroundColor = fgColor
+    WriteIndent(text, 0, addNewLine)
+    Console.ResetColor()
+
+  End Sub
+
+  ''' <summary>
+  ''' Output text indented by (<paramref name="indentBy"/>) spaces in the 'OK' color
+  ''' </summary>
+  ''' <param name="text">Output text</param>
+  ''' <param name="indentBy">Number of leading spaces</param>
+  ''' <param name="bgColor">Background color.</param>
+  ''' <param name="fgColor">Foreground color.</param>
+  ''' <param name="addNewLine">Add a new line after the last line of <paramref name="text"/></param>
+  Public Shared Sub WriteOK(text As String, indentBy As Int32, Optional fgColor As ConsoleColor = ConsoleColor.Green, Optional bgColor As ConsoleColor = ConsoleColor.Black, Optional addNewLine As Boolean = True)
+
+    Console.BackgroundColor = bgColor
+    Console.ForegroundColor = fgColor
+    WriteIndent(text, indentBy, addNewLine)
+    Console.ResetColor()
+
+  End Sub
+
+  ''' <summary>
+  ''' Output text indented by (<paramref name="indentBy"/>) spaces in the 'OK' color
+  ''' </summary>
+  ''' <param name="text">Output text</param>
+  ''' <param name="indentBy">Number of leading spaces</param>
+  ''' <param name="bgColor">Background color.</param>
+  ''' <param name="fgColor">Foreground color.</param>
+  ''' <param name="addNewLine">Add a new line after the last line of <paramref name="text"/></param>
+  Public Shared Sub WriteOK(text As String(), indentBy As Int32, Optional fgColor As ConsoleColor = ConsoleColor.Green, Optional bgColor As ConsoleColor = ConsoleColor.Black, Optional addNewLine As Boolean = True)
+
+    Console.BackgroundColor = bgColor
+    Console.ForegroundColor = fgColor
+    WriteIndent(text, indentBy, addNewLine)
+    Console.ResetColor()
+
+  End Sub
+
+#End Region
+
+#Region "WriteError"
+
+  ''' <summary>
+  ''' Output text in the 'Error' color
+  ''' </summary>
+  ''' <param name="text">Output text</param>
+  ''' <param name="bgColor">Background color.</param>
+  ''' <param name="fgColor">Foreground color.</param>
+  ''' <param name="addNewLine">Add a new line after the last line of <paramref name="text"/></param>
+  Public Shared Sub WriteError(text As String, Optional fgColor As ConsoleColor = ConsoleColor.Red, Optional bgColor As ConsoleColor = ConsoleColor.Black, Optional addNewLine As Boolean = True)
+
+    Console.BackgroundColor = bgColor
+    Console.ForegroundColor = fgColor
+    WriteIndent(text, 0, addNewLine)
+    Console.ResetColor()
+
+  End Sub
+
+  ''' <summary>
+  ''' Output text indented by (<paramref name="indentBy"/>) spaces in the 'Error' color
+  ''' </summary>
+  ''' <param name="text">Output text</param>
+  ''' <param name="indentBy">Number of leading spaces</param>
+  ''' <param name="bgColor">Background color.</param>
+  ''' <param name="fgColor">Foreground color.</param>
+  ''' <param name="addNewLine">Add a new line after the last line of <paramref name="text"/></param>
+  Public Shared Sub WriteError(text As String, indentBy As Int32, Optional fgColor As ConsoleColor = ConsoleColor.Red, Optional bgColor As ConsoleColor = ConsoleColor.Black, Optional addNewLine As Boolean = True)
+
+    Console.BackgroundColor = bgColor
+    Console.ForegroundColor = fgColor
+    WriteIndent(text, indentBy, addNewLine)
+    Console.ResetColor()
+
+  End Sub
+
+  ''' <summary>
+  ''' Output text indented by (<paramref name="indentBy"/>) spaces in the 'Error' color
+  ''' </summary>
+  ''' <param name="text">Output text</param>
+  ''' <param name="indentBy">Number of leading spaces</param>
+  ''' <param name="bgColor">Background color.</param>
+  ''' <param name="fgColor">Foreground color.</param>
+  ''' <param name="addNewLine">Add a new line after the last line of <paramref name="text"/></param>
+  Public Shared Sub WriteError(text As String(), indentBy As Int32, Optional fgColor As ConsoleColor = ConsoleColor.Red, Optional bgColor As ConsoleColor = ConsoleColor.Black, Optional addNewLine As Boolean = True)
+
+    Console.BackgroundColor = bgColor
+    Console.ForegroundColor = fgColor
+    WriteIndent(text, indentBy, addNewLine)
+    Console.ResetColor()
+
+  End Sub
 #End Region
 
 #Region "WaitIndicator"
 
-   ''' <summary>
-   ''' Starts a "spinning wheel" kinda wait time indicator
-   ''' </summary>
-   ''' <param name="newLine">Add a newline on the first post?</param>
-   ''' <param name="spinDelay">A "spinning tick" occurs every <paramref name="spinDelay"/> milliseconds.</param>
-   Public Sub WaitIndicatorStart(Optional ByVal newLine As Boolean = True, Optional ByVal spinDelay As Int32 = 100)
+  ''' <summary>
+  ''' Starts a "spinning wheel" kinda wait time indicator
+  ''' </summary>
+  ''' <param name="newLine">Add a newline on the first post?</param>
+  ''' <param name="spinDelay">A "spinning tick" occurs every <paramref name="spinDelay"/> milliseconds.</param>
+  Public Sub WaitIndicatorStart(Optional ByVal newLine As Boolean = True, Optional ByVal spinDelay As Int32 = 100)
 
       mThdCurLeft = Console.CursorLeft
       mThdCurTop = Console.CursorTop
