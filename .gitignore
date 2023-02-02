@@ -263,3 +263,4 @@ __pycache__/
 # Project specific files/folders
 libBAUtilCore.dt
 zOld/*
+libBAUtilCoreTest/*
