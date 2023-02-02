@@ -1,4 +1,5 @@
 Imports System.Reflection
+Imports System.Runtime.InteropServices
 
 Imports libBAUtilCore.StringHelper
 Imports libBAUtilCore.ConHelperData
@@ -19,6 +20,17 @@ Public Class ConsoleHelper
   Private mThdCurLeft, mThdCurTop, mThdSpinDelay As Int32
   Private mThdNewLine As Boolean
   Private thdWaitIndicator As System.Threading.Thread
+
+  ' Show/hide console window
+  Const SW_HIDE As Integer = 0
+  Const SW_SHOW As Integer = 5
+  Shared handle As IntPtr = GetConsoleWindow()
+  <DllImport("kernel32.dll")>
+  Shared Function GetConsoleWindow() As IntPtr
+  End Function
+  <DllImport("user32.dll")>
+  Shared Function ShowWindow(hWnd As IntPtr, nCmdShow As Integer) As Boolean
+  End Function
 
   Private cts As Threading.CancellationTokenSource = New Threading.CancellationTokenSource
 #End Region
@@ -175,6 +187,27 @@ Public Class ConsoleHelper
       Console.WriteLine("")
     Next
 
+  End Sub
+#End Region
+
+#Region "ConsoleHide"
+  ''' <summary>
+  ''' Hides the console window
+  ''' </summary>
+  ''' <remarks>Show/Hide source: https://superuser.com/questions/398605/how-to-force-windows-desktop-background-to-update-or-refresh</remarks>
+  Public Shared Sub ConsoleHide()
+    ' Hide the console
+    ShowWindow(handle, SW_HIDE)
+  End Sub
+#End Region
+
+  ''' <summary>
+  ''' Shows the console windows
+  ''' </summary>
+#Region "ConsoleShow"
+  Public Shared Sub ConsoleShow()
+    ' Show the console
+    ShowWindow(handle, SW_SHOW)
   End Sub
 #End Region
 
