@@ -60,6 +60,16 @@ Public Class baUtil
 
 #End Region
 
+#Region "Sleep"
+  ''' <summary>
+  ''' Mimics VB6 Sleep
+  ''' </summary>
+  ''' <param name="milliSeconds"></param>
+  Public Shared Sub Sleep(ByVal milliSeconds As Int32)
+    System.Threading.Thread.Sleep(milliSeconds)
+  End Sub
+#End Region
+
 End Class
 
 ''' <summary>

@@ -5,6 +5,8 @@ Imports System.Globalization
 ''' </summary>
 Public Class StringHelper
 
+  ' ToDo: implement ParseCount()
+
 #Region "Declares"
 
   ' Bytes to <unit> - Function Bytes2FormattedString()
@@ -693,69 +695,69 @@ Public Class StringHelper
   ''' Any non-alphanumeric character in <paramref name="mainString"/> remains as is, e.g.
   ''' 00-AA-Z9 -> 00-AB-A0
   ''' </remarks>
-  'Public Shared Function StrIncrement(ByVal mainString As String) As String
+  Public Shared Function StrIncrement(ByVal mainString As String) As String
 
-  '   'StrIncr procedure for PowerBASIC
-  '   ' by Dave Navarro, Jr.
-  '   ' Donated to the Public Domain
-  '   ' Last Revision: July 15, 1994
-  '   ' Update by Knuth Konrad
+    'StrIncr procedure for PowerBASIC
+    ' by Dave Navarro, Jr.
+    ' Donated to the Public Domain
+    ' Last Revision: July 15, 1994
+    ' Update by Knuth Konrad
 
 
-  '   Dim lValue, x As Int32
-  '   Dim sChar, sTemp As String
+    Dim lValue, x As Int32
+    Dim sChar, sTemp As String
 
-  '   ' "9"'s only?
-  '   sTemp = mainString.Replace("9", String.Empty)
-  '   If sTemp.Length = 0 Then
-  '      lValue = Convert.ToInt32(mainString)
-  '      lValue = lValue + 1
-  '      Return lValue.ToString
-  '   End If
+    ' "9"'s only?
+    sTemp = mainString.Replace("9", String.Empty)
+    If sTemp.Length = 0 Then
+      lValue = Convert.ToInt32(mainString)
+      lValue = lValue + 1
+      Return lValue.ToString
+    End If
 
-  '   ' If TALLY(sString, "9") = LEN(sString) Then
-  '   'String besteht nur aus Zahlen und nur aus
-  '   '9ern
-  '   ' lValue = VAL(sString)
-  '   ' INCR lValue
-  '   ' StrIncr = TRIM$(STR$(lValue))
-  '   ' Exit Function
-  '   ' End If
+    ' If TALLY(sString, "9") = LEN(sString) Then
+    'String besteht nur aus Zahlen und nur aus
+    '9ern
+    ' lValue = VAL(sString)
+    ' INCR lValue
+    ' StrIncr = TRIM$(STR$(lValue))
+    ' Exit Function
+    ' End If
 
-  '   For x = mainString.Length To 1 Step -1
+    For x = mainString.Length To 1 Step -1
 
-  '      'For x = LEN(sString) To 1 Step -1
+      'For x = LEN(sString) To 1 Step -1
 
-  '      sChar = Mid(mainString, x, 1)
+      sChar = Mid(mainString, x, 1)
 
-  '      If (sChar >= "0") And (sChar <= "8") Then
-  '         sChar = Chr(Asc(sChar) + 1)
-  '         Mid(mainString, x, 1) = sChar
-  '         Exit For
-  '      ElseIf sChar = "9" Then
-  '         sChar = "0"
-  '         Mid(mainString, x, 1) = sChar
-  '      ElseIf (sChar >= "A") And (sChar <= "Y") Then
-  '         sChar = Chr(Asc(sChar) + 1)
-  '         Mid(mainString, x, 1) = sChar
-  '         Exit For
-  '      ElseIf sChar = "Z" Then
-  '         sChar = "A"
-  '         Mid(mainString, x, 1) = sChar
-  '      ElseIf (sChar >= "a") And (sChar <= "y") Then
-  '         sChar = Chr(Asc(sChar) + 1)
-  '         Mid(mainString, x, 1) = sChar
-  '         Exit For
-  '      ElseIf sChar = "z" Then
-  '         sChar = "a"
-  '         Mid(mainString, x, 1) = sChar
-  '      End If
+      If (sChar >= "0") And (sChar <= "8") Then
+        sChar = Chr(Asc(sChar) + 1)
+        Mid(mainString, x, 1) = sChar
+        Exit For
+      ElseIf sChar = "9" Then
+        sChar = "0"
+        Mid(mainString, x, 1) = sChar
+      ElseIf (sChar >= "A") And (sChar <= "Y") Then
+        sChar = Chr(Asc(sChar) + 1)
+        Mid(mainString, x, 1) = sChar
+        Exit For
+      ElseIf sChar = "Z" Then
+        sChar = "A"
+        Mid(mainString, x, 1) = sChar
+      ElseIf (sChar >= "a") And (sChar <= "y") Then
+        sChar = Chr(Asc(sChar) + 1)
+        Mid(mainString, x, 1) = sChar
+        Exit For
+      ElseIf sChar = "z" Then
+        sChar = "a"
+        Mid(mainString, x, 1) = sChar
+      End If
 
-  '   Next x
+    Next x
 
-  '   Return mainString
+    Return mainString
 
-  'End Function
+  End Function
 
 #End Region
 
@@ -1097,6 +1099,91 @@ Public Class StringHelper
   ''' <returns>'White space'</returns>
   Public Shared Function vbWhiteSpace() As String
     Return vbTab() & vbNewLine() & " "
+  End Function
+
+#End Region
+
+#Region "ParseCount"
+
+  ''' <summary>
+  ''' Return the count of (comma) delimited strings in a string expression.
+  ''' </summary>
+  ''' <param name="stringExpression">
+  ''' This is the string to examine and parse. If <paramref name="stringExpression"/> is empty (a null string) or contains no delimiter character(s), the string is considered to contain exactly one sub-field. 
+  ''' In this case, ParseCount returns the value 1.
+  '''</param>
+  ''' <returns>Number of strings in <paramref name="stringExpression"/></returns>
+  ''' <remarks>Mimics PB's ParseCount</remarks>
+  Public Shared Function ParseCount(
+    ByVal stringExpression As String
+    ) As Int32
+
+    Dim count As Int32
+
+    ' Safe guard
+    If System.String.IsNullOrEmpty(stringExpression) OrElse Not stringExpression.Contains(",") Then
+      count = 1
+
+    Else
+
+      Try
+        Dim tmp As String() = stringExpression.Split(",")
+        count = tmp.Count
+      Catch ex As Exception
+        count = 0
+      End Try
+
+    End If
+
+    Return count
+
+  End Function
+
+  ''' <summary>
+  ''' Return the count of (comma) delimited strings in a string expression.
+  ''' </summary>
+  ''' <param name="stringExpression">
+  ''' This is the string to examine and parse. If <paramref name="stringExpression"/> is empty (a null string) or contains no delimiter character(s), the string is considered to contain exactly one sub-field. 
+  ''' In this case, ParseCount returns the value 1.
+  ''' </param>
+  ''' <param name="delimiters">
+  ''' Characters considered to be delimiters
+  ''' </param>
+  ''' <returns>Number of strings in <paramref name="stringExpression"/></returns>
+  ''' <remarks>Mimics PB's ParseCount</remarks>
+  Public Shared Function ParseCount(
+    ByVal stringExpression As String,
+    ByVal delimiters As String
+    ) As Int32
+
+    Dim count As Int32
+
+    ' Safe guard
+    If System.String.IsNullOrEmpty(stringExpression) OrElse System.String.IsNullOrEmpty(delimiters) Then
+      count = 1
+    Else
+
+      For i As Int32 = 1 To delimiters.Length
+
+        If stringExpression.Contains(Mid(delimiters, i, 1)) Then
+          Try
+            Dim tmp As String() = stringExpression.Split(Mid(delimiters, i, 1))
+            count += tmp.Count
+          Catch ex As Exception
+            count += 0
+          End Try
+        End If
+
+      Next i
+
+      ' stringExpression isn't empty, but no delimiters found = return one
+      If count = 0 Then
+        count += 1
+      End If
+    End If
+
+    Return count
+
   End Function
 
 #End Region
